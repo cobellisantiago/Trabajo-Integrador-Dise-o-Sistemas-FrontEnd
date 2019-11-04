@@ -1,0 +1,19 @@
+.example-fill-remaining-space {
+    /* This fills the remaining space, by using flexbox. 
+       Every toolbar row uses a flexbox row layout. */
+    flex: 1 1 auto;
+  }
+
+.menu-option{
+    margin: 10px;
+}
+
+.example-card {
+    max-width: auto;
+    max-height: auto;
+    margin: 10px;
+}
+
+.icon-click{
+    cursor: pointer;
+}

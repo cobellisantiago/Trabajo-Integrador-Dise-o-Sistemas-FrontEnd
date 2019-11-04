@@ -1,0 +1,251 @@
+<div fxLayout="column" fxLayoutAlign="space-evenly stretch">
+<!-- <mat-divider [inset]="true"></mat-divider> -->
+<h1>Cliente</h1>
+<div class="container" fxLayout="column wrap" fxLayoutAlign="space-evenly start">
+    <div fxLayout="row" fxLayoutAlign="space-between stretch">
+        <div fxLayout="column" fxFlex="30" fxLayoutAlign="space-arround start" style="padding-left: 2em;">
+            <mat-form-field appearance="outline" color="accent">
+                <mat-label>Numero de cliente</mat-label>
+                <input matInput placeholder="Placeholder" value="55-9685445222-88" disabled>
+                <!-- <mat-icon matSuffix>sentiment_very_satisfied</mat-icon> -->
+                <!-- <mat-hint>Hint</mat-hint> -->
+            </mat-form-field>
+        </div>
+        <div fxLayout="column" fxFlex="30" fxLayoutAlign="space-arround start" style="padding-left: 2em;">
+            <mat-form-field appearance="outline" color="accent">
+                <mat-label>Nombre</mat-label>
+                <input matInput placeholder="Placeholder" value="Maria de los Milagros" disabled>
+                <!-- <mat-icon matSuffix>sentiment_very_satisfied</mat-icon> -->
+                <!-- <mat-hint>Hint</mat-hint> -->
+            </mat-form-field>
+        </div>
+        <div fxLayout="column" fxFlex="30" fxLayoutAlign="space-arround start" style="padding-left: 2em;">
+            <mat-form-field appearance="outline" color="accent">
+                <mat-label>Apellido</mat-label>
+                <input matInput placeholder="Placeholder" value="Lopez Marquez" disabled>
+                <!-- <mat-icon matSuffix>sentiment_very_satisfied</mat-icon> -->
+                <!-- <mat-hint>Hint</mat-hint> -->
+            </mat-form-field>
+        </div>
+    </div>
+<!-- </div> -->
+<!-- <div class="container" fxLayout="column wrap" fxLayoutAlign="space-evenly start"> -->
+    <div fxLayout="row" fxLayoutAlign="space-between stretch">
+        <div fxLayout="column" fxFlex="30" fxLayoutAlign="space-arround start" style="padding-left: 2em;">
+            <mat-form-field appearance="outline" color="accent">
+                <mat-label>Tipo de documento</mat-label>
+                <input matInput placeholder="Placeholder" value="DNI" disabled>
+                <!-- <mat-icon matSuffix>sentiment_very_satisfied</mat-icon> -->
+                <!-- <mat-hint>Hint</mat-hint> -->
+            </mat-form-field>
+        </div>
+        <div fxLayout="column" fxFlex="30" fxLayoutAlign="space-arround start" style="padding-left: 2em;">
+            <mat-form-field appearance="outline" color="accent">
+                <mat-label>Numero de documento</mat-label>
+                <input matInput placeholder="Placeholder" value="22.755.832" disabled>
+                <!-- <mat-icon matSuffix>sentiment_very_satisfied</mat-icon> -->
+                <!-- <mat-hint>Hint</mat-hint> -->
+            </mat-form-field>
+        </div>
+        <div fxLayout="column" fxFlex="30" fxLayoutAlign="space-arround start" style="padding-left: 2em;">
+            <mat-form-field appearance="outline" color="accent">
+                <mat-label>Domicilio</mat-label>
+                <input matInput placeholder="Placeholder" value={{domicilio}} disabled color="black">
+                <!-- <mat-icon matSuffix>sentiment_very_satisfied</mat-icon> -->
+                <!-- <mat-hint>Hint</mat-hint> -->
+            </mat-form-field>
+        </div>
+    </div>
+</div>
+<mat-divider [inset]="true"></mat-divider>
+<!-- DATOS POLIZA -->
+<h1>Poliza</h1>
+<div fxLayout="column" fxLayoutAlign="space-evenly stretch" class="fila">
+    <div fxLayout="row wrap" fxLayoutAlign="stretch" >
+        <div fxLayout="column" fxLayoutAlign="space-arround start" style="padding-left: 2em;">
+            <mat-form-field appearance="outline" color="accent" required>
+                <mat-label>Provincia</mat-label>
+                <mat-select placeholder="Seleccionar">
+                    <mat-option value="option">Option</mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+        <div fxLayout="column" fxLayoutAlign="space-arround start" style="padding-left: 2em;">
+            <mat-form-field appearance="outline" color="accent">
+                <mat-label>Localidad</mat-label>
+                <mat-select placeholder="Seleccionar">
+                    <mat-option value="option">Option</mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+        <div fxLayout="column" fxLayoutAlign="space-arround start" style="padding-left: 2em;">
+            <mat-form-field appearance="outline" color="accent">
+                <mat-label>Marca</mat-label>
+                <mat-select placeholder="Seleccionar">
+                    <mat-option value="option">Option</mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+        <div fxLayout="column" fxLayoutAlign="space-arround start" style="padding-left: 2em;">
+            <mat-form-field appearance="outline" color="accent">
+                <mat-label>Modelo</mat-label>
+                <mat-select placeholder="Seleccionar">
+                    <mat-option value="option">Option</mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+        <div fxLayout="column" fxLayoutAlign="space-arround start" style="padding-left: 2em;">
+            <mat-form-field appearance="outline" color="accent">
+                <mat-label>Año</mat-label>
+                <mat-select placeholder="Seleccionar" [formControl]="animalControl" required>
+                    <mat-option value="option">Option</mat-option>
+                </mat-select>
+                <mat-error *ngIf="animalControl.hasError('required')">Please choose an animal</mat-error>
+            </mat-form-field>
+        </div>
+    </div>
+    <div fxLayout="row wrap" fxLayoutAlign="stretch">
+        <div fxLayout="column" fxLayoutAlign="space-arround start" style="padding-left: 2em;">
+            <mat-form-field appearance="outline">
+                <mat-label>Motor</mat-label>
+                <input matInput placeholder="Placeholder">
+                <!-- <mat-icon matSuffix>sentiment_very_satisfied</mat-icon> -->
+                <mat-hint>Hint</mat-hint>
+            </mat-form-field>
+        </div>
+        <div fxLayout="column" fxLayoutAlign="space-arround start" style="padding-left: 2em;">
+            <mat-form-field appearance="outline">
+                <mat-label>Chasis</mat-label>
+                <input matInput placeholder="Placeholder">
+                <!-- <mat-icon matSuffix>sentiment_very_satisfied</mat-icon> -->
+                <mat-hint>Hint</mat-hint>
+            </mat-form-field>
+        </div>
+        <div fxLayout="column" fxLayoutAlign="space-arround start" style="padding-left: 2em;">
+            <mat-form-field appearance="outline">
+                <mat-label>Patente</mat-label>
+                <input matInput placeholder="Placeholder">
+                <!-- <mat-icon matSuffix>sentiment_very_satisfied</mat-icon> -->
+                <mat-hint>Hint</mat-hint>
+            </mat-form-field>
+        </div>
+        <div fxLayout="column" fxLayoutAlign="space-arround start" style="padding-left: 2em;">
+            <mat-form-field appearance="outline" color="accent" required>
+                <mat-label>Kilometros por año</mat-label>
+                <mat-select placeholder="Seleccionar">
+                    <mat-option value="option">Option</mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+    </div>
+    <div fxLayout="row wrap" fxLayoutAlign="space-arround stretch">
+        <div fxLayout="column" fxLayoutAlign="space-arround " style="padding-left: 2em;">
+            <mat-form-field appearance="outline">
+                <mat-label>Suma asegurada</mat-label>
+                <input matInput placeholder="Placeholder">
+                <!-- <mat-icon matSuffix>sentiment_very_satisfied</mat-icon> -->
+                <mat-hint>AR$</mat-hint>
+            </mat-form-field>
+        </div>
+        <div fxLayout="column" fxLayoutAlign="space-arround ">
+            <mat-form-field appearance="outline">
+                <mat-label>Nº de siniestros</mat-label>
+                <input matInput placeholder="Placeholder">
+                <!-- <mat-icon matSuffix>sentiment_very_satisfied</mat-icon> -->
+                <mat-hint>En el ultimo año</mat-hint>
+            </mat-form-field>
+        </div>
+        <div fxLayout="column wrap" fxLayoutAlign="space-arround start">
+            <mat-checkbox>Garage</mat-checkbox>
+            <mat-checkbox>Tracking system</mat-checkbox>
+        </div>
+        <div fxLayout="column" fxLayoutAlign="space-arround start">
+            <mat-checkbox>Alarma</mat-checkbox>
+            <mat-checkbox>Tuercas antirobo</mat-checkbox>
+        </div>
+    </div>
+    <div fxLayout="row" fxLayoutAlign="space-arround stretch">
+        <mat-expansion-panel [expanded]="step === 0" (opened)="setStep(0)" hideToggle fxFlex="100"
+            class="example-headers-align">
+            <mat-expansion-panel-header>
+                <mat-panel-title>
+                    Declaración hijos de 18 a 30 años
+                </mat-panel-title>
+                <mat-panel-description>
+                    Type your name and age
+                    <mat-icon>account_circle</mat-icon>
+                </mat-panel-description>
+            </mat-expansion-panel-header>
+    
+            <!-- <mat-form-field>
+                              <input matInput placeholder="First name">
+                            </mat-form-field>
+                        
+                            <mat-form-field>
+                              <input matInput type="number" min="1" placeholder="Age">
+                            </mat-form-field> -->
+            <mat-accordion class="example-headers-align">
+                <mat-expansion-panel [expanded]="step === 0" (opened)="setStep(0)" hideToggle>
+                    <mat-expansion-panel-header>
+                        <mat-panel-title>
+                            Datos hijo/a
+                        </mat-panel-title>
+                        <mat-panel-description>
+                            Ingrese datos del hijos/as
+                            <mat-icon>person_add</mat-icon>
+                        </mat-panel-description>
+                    </mat-expansion-panel-header>
+    
+    
+                    <mat-form-field appearance="outline" color="accent" required>
+                        <mat-label>Sexo</mat-label>
+                        <mat-select placeholder="Seleccionar">
+                            <mat-option value="option">Masculino</mat-option>
+                            <mat-option value="option">Femenino</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+    
+    
+                    <mat-form-field appearance="outline" color="accent" required>
+                        <mat-label>Estado civil</mat-label>
+                        <mat-select placeholder="Seleccionar">
+                            <mat-option value="option">Option</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+    
+                    <mat-form-field>
+                        <mat-label>Fecha de nacimiento</mat-label>
+                        <input matInput placeholder="Date" [matDatepicker]="picker" (focus)="picker.open()" readonly>
+                    </mat-form-field>
+                    <mat-datepicker #picker></mat-datepicker>
+    
+    
+                    <mat-action-row>
+                        <button mat-button color="warn" (click)="prevStep()">Previous</button>
+                        <button mat-button color="primary" (click)="nextStep()">Next</button>
+                    </mat-action-row>
+                </mat-expansion-panel>
+    
+    
+    
+            </mat-accordion>
+        </mat-expansion-panel>
+    
+    </div>
+</div>
+<div fxLayout="column" fxLayoutAlign="space-evenly stretch" class="fila">
+        <div fxLayout="row" fxLayoutAlign="end strech">
+                <button mat-raised-button style="background-color:#FFFFFF;">Cancelar</button>
+                <button mat-raised-button style="background-color:#36AE47;">Confimar</button>
+        </div>
+</div>
+</div>
+
+<!-- <div fxLayout="row" fxLayoutAlign="space-arround start" style="padding-left: 2em;">
+                <mat-form-field appearance="outline" color="accent">
+                    <mat-label>Localidad</mat-label>
+                    <input matInput placeholder="Placeholder">
+                     <mat-icon matSuffix>sentiment_very_satisfied</mat-icon> -->
+<!-- <mat-hint>Hint</mat-hint>
+                </mat-form-field>
+            </div> -->

@@ -1,0 +1,53 @@
+.example-button-row button,
+.example-button-row{
+  margin: 8px;
+  align-self: stretch;
+  padding-right: 0px;
+}
+
+.menu-button{
+    /* height: 130px;
+    width: 500px; */
+    width: auto;
+    padding: 18px; 
+    margin: 8px;
+    /* font-family: Open Sans;
+    font-style: normal;
+    font-weight: bold; */
+    font-size: 20pt;
+    line-height: 20pt;
+    
+    text-align: start;
+    /* vertical-align: baseline; */
+    align-content: space-evenly;
+    white-space: normal; /* Texto hace un salto de linea si es necesario */
+    color: white;  /* Color texto */
+
+    box-shadow: 0px 6px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 10px;
+    
+}
+
+.color-verde{
+    background: #84D098;
+}
+
+.color-amarillo{
+    background: #FFC552;
+}
+
+.color-amarillo-claro{
+    background: #F6DB60;
+}
+
+.color-celeste{
+    background: #53C3F4;
+}
+
+.color-celeste-oscuro{
+    background: #719ED2;
+}
+
+.icon{
+    padding: 8px;
+}
