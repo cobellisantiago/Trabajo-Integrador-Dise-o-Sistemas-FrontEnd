@@ -1,3 +1,4 @@
+import { SeleccionCoberturaComponent } from './components/seleccion-cobertura/seleccion-cobertura.component';
 import { NuevaPolizaComponent } from './components/nueva-poliza/nueva-poliza.component';
 import { MenuPrincipalComponent } from './components/menu-principal/menu-principal.component'
 import { NgModule } from '@angular/core';
@@ -10,6 +11,9 @@ const routes: Routes = [
   },
   {
     path: 'nueva', component: NuevaPolizaComponent
+  },
+  { 
+    path: 'cobertura',  component: SeleccionCoberturaComponent
   },
   { 
     path: '',   redirectTo: '/menu', pathMatch: 'prefix' 

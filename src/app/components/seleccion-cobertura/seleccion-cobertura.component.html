@@ -1,0 +1,80 @@
+<p>seleccion-cobertura works!</p>
+
+
+<button mat-raised-button (click)="isLinear = !isLinear" id="toggle-linear">
+    {{!isLinear ? 'Enable linear mode' : 'Disable linear mode'}}
+  </button>
+  <mat-vertical-stepper [linear]="isLinear" #stepper>
+    <mat-step [stepControl]="firstFormGroup">
+      <form [formGroup]="firstFormGroup">
+        <ng-template matStepLabel>Seleccionar cobertura</ng-template>
+        <form class="example-container" [formGroup]="tercerFormGroup">
+                <div>
+                  <mat-radio-group formControlName="tercerCtrl" required>
+                    <div class="container" fxLayout="column wrap" fxLayoutAlign="space-evenly start">
+                        <div fxLayout="row" fxLayoutAlign="start" *ngFor="let cobertura of coberturas" [ngClass]=cobertura>
+                        <mat-radio-button fxFlex="20" value="cobertura.nombre" style="margin: 1%;
+                        white-space: normal;">
+                            <mat-card>
+                                <mat-card-header>
+                                    <div mat-car></div>
+                                    <mat-card-title>{{cobertura?.nombre}}</mat-card-title>
+                                </mat-card-header>
+                                <mat-card-content>
+                                    <p>
+                                        {{cobertura?.descripcion}}
+                                    </p>
+                                </mat-card-content>
+                            </mat-card>
+                        </mat-radio-button>
+                        </div>
+                    </div>
+                  </mat-radio-group>
+                </div>
+              </form>
+        <div>
+          <button mat-button matStepperNext>Siguiente</button>
+        </div>
+      </form>
+    </mat-step>
+    <mat-step [stepControl]="secondFormGroup">
+      <form [formGroup]="secondFormGroup">
+        <ng-template matStepLabel>Fecha de inicio</ng-template>
+        <mat-form-field>
+                <input matInput [matDatepicker]="picker" placeholder="Seleccione una fecha" formControlName="secondCtrl" required>
+                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
+              </mat-form-field>
+        <div>
+          <button mat-button matStepperPrevious>Atras</button>
+          <button mat-button matStepperNext>Siguiente</button>
+        </div>
+      </form>
+    </mat-step>
+    <mat-step [stepControl]="tercerFormGroup">
+        <form [formGroup]="tercerFormGroup">
+          <ng-template matStepLabel>Forma de pago</ng-template>
+        <form class="example-container" [formGroup]="tercerFormGroup">
+            <div class="container" fxLayout="column wrap" fxLayoutAlign="space-evenly center">
+                <label>Seleccionar forma de pago: </label>
+                <mat-radio-group formControlName="tercerCtrl">
+                    <mat-radio-button value="semestral">Pago mensual</mat-radio-button>
+                    <mat-radio-button value="mensual">Pago semestral</mat-radio-button>
+                </mat-radio-group>
+            </div>
+        </form>
+          <div>
+            <button mat-button matStepperPrevious>Atras</button>
+            <button mat-button matStepperNext>Siguiente</button>
+          </div>
+        </form>
+      </mat-step>
+    <mat-step>
+      <ng-template matStepLabel>Done</ng-template>
+      You are now done.
+      <div>
+        <button mat-button matStepperPrevious>Back</button>
+        <button mat-button (click)="stepper.reset()">Reset</button>
+      </div>
+    </mat-step>
+  </mat-vertical-stepper>

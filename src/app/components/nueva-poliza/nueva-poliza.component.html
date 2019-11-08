@@ -6,7 +6,7 @@
         <div fxLayout="column" fxFlex="30" fxLayoutAlign="space-arround start" style="padding-left: 2em;">
             <mat-form-field appearance="outline" color="accent">
                 <mat-label>Numero de cliente</mat-label>
-                <input matInput placeholder="Placeholder" value="55-9685445222-88" disabled>
+                <input matInput placeholder="Placeholder" value={{cliente?.id}} disabled>
                 <!-- <mat-icon matSuffix>sentiment_very_satisfied</mat-icon> -->
                 <!-- <mat-hint>Hint</mat-hint> -->
             </mat-form-field>
@@ -14,7 +14,7 @@
         <div fxLayout="column" fxFlex="30" fxLayoutAlign="space-arround start" style="padding-left: 2em;">
             <mat-form-field appearance="outline" color="accent">
                 <mat-label>Nombre</mat-label>
-                <input matInput placeholder="Placeholder" value="Maria de los Milagros" disabled>
+                <input matInput placeholder="Placeholder" value={{cliente?.nombre}} disabled>
                 <!-- <mat-icon matSuffix>sentiment_very_satisfied</mat-icon> -->
                 <!-- <mat-hint>Hint</mat-hint> -->
             </mat-form-field>
@@ -22,7 +22,7 @@
         <div fxLayout="column" fxFlex="30" fxLayoutAlign="space-arround start" style="padding-left: 2em;">
             <mat-form-field appearance="outline" color="accent">
                 <mat-label>Apellido</mat-label>
-                <input matInput placeholder="Placeholder" value="Lopez Marquez" disabled>
+                <input matInput placeholder="Placeholder" value={{cliente?.apellido}} disabled>
                 <!-- <mat-icon matSuffix>sentiment_very_satisfied</mat-icon> -->
                 <!-- <mat-hint>Hint</mat-hint> -->
             </mat-form-field>
@@ -42,7 +42,7 @@
         <div fxLayout="column" fxFlex="30" fxLayoutAlign="space-arround start" style="padding-left: 2em;">
             <mat-form-field appearance="outline" color="accent">
                 <mat-label>Numero de documento</mat-label>
-                <input matInput placeholder="Placeholder" value="22.755.832" disabled>
+                <input matInput placeholder="Placeholder" value={{cliente?.numeroDeDocumento}} disabled>
                 <!-- <mat-icon matSuffix>sentiment_very_satisfied</mat-icon> -->
                 <!-- <mat-hint>Hint</mat-hint> -->
             </mat-form-field>
@@ -50,7 +50,7 @@
         <div fxLayout="column" fxFlex="30" fxLayoutAlign="space-arround start" style="padding-left: 2em;">
             <mat-form-field appearance="outline" color="accent">
                 <mat-label>Domicilio</mat-label>
-                <input matInput placeholder="Placeholder" value={{domicilio}} disabled color="black">
+                <input matInput placeholder="Placeholder" value={{domicilio?.calle}}+{{domicili?.numero}} disabled color="black">
                 <!-- <mat-icon matSuffix>sentiment_very_satisfied</mat-icon> -->
                 <!-- <mat-hint>Hint</mat-hint> -->
             </mat-form-field>
