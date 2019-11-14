@@ -1,3 +1,4 @@
+import { Hijo } from './../../model/hijo';
 import { Router } from '@angular/router';
 import { Modelo } from './../../model/modelo';
 import { AutomovilService } from './../../service/automovil.service';
@@ -31,8 +32,8 @@ export class NuevaPolizaComponent implements OnInit{
   localidades: Localidad[];
   marcas: Marca[];
   modelos: Modelo[];
-
-  cantidadHijos: boolean[];
+  hijos: Hijo[];
+  cantidadHijos: number;
   
 
   polizaForm: FormGroup;
@@ -50,8 +51,15 @@ export class NuevaPolizaComponent implements OnInit{
   constructor(private domicilioService: DomicilioService, private ClienteService: ClienteService, private automovilService: AutomovilService, private router: Router) { } 
 
   ngOnInit() {
+    let hijo: Hijo = {
+      id : 0,
+      fechaDeNacimiento : null,
+      sexo : null,
+      estadoCivil : null
+    };
+    this.cantidadHijos = 0;
 
-    this.cantidadHijos=[true];
+    this.hijos = [hijo];
     this.polizaForm = new FormGroup({
       clienteFormControl: new FormControl({value: this.cliente, disabled: true},Validators.required),
       provinciaFormControl: new FormControl('',Validators.required),
@@ -61,14 +69,11 @@ export class NuevaPolizaComponent implements OnInit{
     });
     
     this.ClienteService.getCliente(0).subscribe(client => {
+      console.log(client);      
       this.cliente = client; console.log(this.cliente); 
       console.log("Domicilio: "+this.cliente.domicilio);
       this.domicilio = this.cliente.domicilio.calle + " "+ this.cliente.domicilio.numero;      
-      // this.domicilioService.getDomicilio(this.cliente.domicilio.id).subscribe(domi => {
-      //   this.domicilio = domi;},
-      //   error => {
-      //     console.log("No se puede obtener el domicilio");
-      // });
+    
       if(this.cliente == undefined){
         this.polizaForm.controls['clienteFormControl'].setErrors({'required': true});
       }
@@ -93,11 +98,12 @@ export class NuevaPolizaComponent implements OnInit{
     
   }
   
+  //Se ejecuta cada vez que la provincia seleccionada cambia
+  //Altera la lista de localidades
   selectProvinciaChange(provincia){
     if(provincia!=undefined){
       console.log("Id provincia: ");
       console.log(this.provincias[provincia].id);
-      
       
       this.domicilioService.getAllLocalidad(this.provincias[provincia].id).subscribe(
         lista => {this.localidades = lista;},
@@ -107,6 +113,8 @@ export class NuevaPolizaComponent implements OnInit{
     
   }
 
+  //Se ejecuta cada vez que la marca seleccionada cambia
+  //Altera la lista de modelos
   selectMarcaChange(marca){
     if(marca!=undefined){
       console.log(marca);
@@ -120,13 +128,29 @@ export class NuevaPolizaComponent implements OnInit{
   }
 
   agregarHijo(){
-    this.cantidadHijos.push(true);
-    console.log("puto");
+    this.cantidadHijos++;
+    let hijo: Hijo = {
+      id :this.cantidadHijos,
+      fechaDeNacimiento : null,
+      sexo : null,
+      estadoCivil : null
+    };
+    this.hijos.push(hijo);
+    console.log(this.hijos);
+    
   }
 
-  borrarHijo(a){
-    this.cantidadHijos[this.cantidadHijos.indexOf(a)]=false;
-    this.cantidadHijos = this.cantidadHijos.filter(obj => obj !== false);
+  guardarHijo(){
+
+  }
+
+  borrarHijo(i){
+    console.log(i);
+    
+    let hijo = this.hijos[i];
+    console.log(hijo);
+    
+    this.hijos = this.hijos.filter(obj => obj.id !== hijo.id);
   }
 
   confirmar(){

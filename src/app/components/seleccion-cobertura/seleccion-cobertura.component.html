@@ -1,6 +1,7 @@
 <p>seleccion-cobertura works!</p>
 
 
+
 <button mat-raised-button (click)="isLinear = !isLinear" id="toggle-linear">
     {{!isLinear ? 'Enable linear mode' : 'Disable linear mode'}}
   </button>
@@ -12,8 +13,8 @@
                 <div>
                   <mat-radio-group formControlName="tercerCtrl" required>
                     <div class="container" fxLayout="column wrap" fxLayoutAlign="space-evenly start">
-                        <div fxLayout="row" fxLayoutAlign="start" *ngFor="let cobertura of coberturas" [ngClass]=cobertura>
-                        <mat-radio-button fxFlex="20" value="cobertura.nombre" style="margin: 1%;
+                        <div fxLayout="row" fxLayoutAlign="start" *ngFor="let cobertura of coberturas" >
+                        <mat-radio-button fxFlex="20" [value]="cobertura?.id" style="margin: 1%;
                         white-space: normal;">
                             <mat-card>
                                 <mat-card-header>
@@ -69,7 +70,7 @@
           </div>
         </form>
       </mat-step>
-    <mat-step>
+    <mat-step >
       <ng-template matStepLabel>Done</ng-template>
       You are now done.
       <div>

@@ -2,12 +2,16 @@ import { Cobertura } from './../../model/cobertura';
 import { CoberturaService } from './../../service/cobertura.service';
 import { Component, OnInit } from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import { MAT_STEPPER_GLOBAL_OPTIONS } from '@angular/cdk/stepper';
 
 
 @Component({
   selector: 'app-seleccion-cobertura',
   templateUrl: './seleccion-cobertura.component.html',
-  styleUrls: ['./seleccion-cobertura.component.css']
+  styleUrls: ['./seleccion-cobertura.component.css'],
+  providers: [{
+    provide: MAT_STEPPER_GLOBAL_OPTIONS, useValue: { displayDefaultIndicatorType: false }
+  }]
 })
 export class SeleccionCoberturaComponent implements OnInit {
 

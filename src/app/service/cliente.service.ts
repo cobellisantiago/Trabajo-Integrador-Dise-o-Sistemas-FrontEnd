@@ -1,5 +1,5 @@
 import { DomicilioService } from './domicilio.service';
-import { map } from 'rxjs/operators';
+import { map, switchMap, flatMap, mergeAll } from 'rxjs/operators';
 import { Cliente } from './../model/cliente';
 import { Observable } from 'rxjs';
 import { Injectable } from '@angular/core';
@@ -17,7 +17,7 @@ export class ClienteService {
 
   getCliente(id: number): Observable<any> {
     const url = `${this.apiUrl}/${id}`;
-    return this.http.get<Cliente>(url).pipe(map(any => {
+    return this.http.get<Cliente>(url).pipe(map( any => {
       console.log(any);
       let cliente = new Cliente(any);
       this.domicilioService.getDomicilio(any.idDomicilio).subscribe(dom =>{cliente.domicilio = new Domicilio(dom)},
@@ -27,5 +27,5 @@ export class ClienteService {
       
       return cliente;
     }));
- }
+  }
 }

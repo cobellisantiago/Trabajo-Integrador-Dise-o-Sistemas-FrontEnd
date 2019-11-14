@@ -182,7 +182,7 @@
                             Declaración hijos de 18 a 30 años
                         </mat-panel-title>
                         <mat-panel-description>
-                            Type your name and age
+                            Ingrese los datos del hijo
                             <mat-icon>account_circle</mat-icon>
                         </mat-panel-description>
                     </mat-expansion-panel-header>
@@ -194,8 +194,8 @@
                             <mat-form-field>
                               <input matInput type="number" min="1" placeholder="Age">
                             </mat-form-field> -->
-                    <mat-accordion>
-                        <mat-expansion-panel *ngFor="let a of cantidadHijos; let i = index" hideToggle>
+                    
+                        <mat-expansion-panel *ngFor="let a of hijos; let i = index" hideToggle style="margin-top: 1em;">
                             <mat-expansion-panel-header>
                                 <mat-panel-title>
                                     Datos hijo/a
@@ -232,12 +232,12 @@
 
 
                             <mat-action-row>
-                                <button type="button" mat-button color="warn" (click)="borrarHijo(a)">Borrar</button>
-                                <button type="button"mat-button color="primary">Next</button>
+                                <button type="button" mat-button color="warn" (click)="borrarHijo(i)">Borrar</button>
+                                <button type="button"mat-button color="primary" (click)="guardarHijo(i)">guardar</button>
                             </mat-action-row>
                         </mat-expansion-panel>
                         <button mat-button type="button" color="warn" (click)="agregarHijo()">Agregar hijo</button>
-                    </mat-accordion>
+                   
                 </mat-expansion-panel>
 
             </div>
