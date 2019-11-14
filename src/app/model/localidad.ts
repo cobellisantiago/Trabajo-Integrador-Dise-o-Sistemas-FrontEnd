@@ -4,13 +4,15 @@ export class Localidad {
     id: number;
     nombre: string;
     porcentajeRobo: number;
-    Provincia: Provincia;
+    idProvincia: number;
+    provincia: Provincia;
 
     constructor(any){
 
         this.id = any.idLocalidad;
         this.nombre = any.nombre;
         this.porcentajeRobo = any.porcentajeRobo;
-        this.Provincia = any.provincia;
+        this.idProvincia = this.idProvincia;
+        this.provincia = any.provincia;
     }
 }

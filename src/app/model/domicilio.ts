@@ -7,6 +7,7 @@ export class Domicilio {
     piso: number;
     departamento: string;
     codigoPostal: number;
+    idLocalidad: number;
     localidad: Localidad;
 
     constructor(any){
@@ -16,6 +17,7 @@ export class Domicilio {
         this.piso = any.piso;
         this.departamento = any.departamento;
         this.codigoPostal = any.codigoPostal;
+        this.idLocalidad = any.idLocalidad;
         this.localidad = any.Localidad;
     }
 }
