@@ -1,10 +1,11 @@
 import { Marca } from './marca';
+import { AñoVehiculo } from './año-vehiculo';
 export class Modelo {
 
     id: number;
     nombre: string;
     porcentajeRobo: number;
-    añosFabricacion: number[];
+    añosFabricacion: AñoVehiculo[];
     idMarca: number;
     marca: Marca;
 

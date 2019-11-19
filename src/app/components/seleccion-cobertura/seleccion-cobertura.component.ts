@@ -1,3 +1,5 @@
+import { StateService } from './../../state.service';
+import { Poliza } from './../../model/poliza';
 import { Cobertura } from './../../model/cobertura';
 import { CoberturaService } from './../../service/cobertura.service';
 import { Component, OnInit } from '@angular/core';
@@ -15,6 +17,8 @@ import { MAT_STEPPER_GLOBAL_OPTIONS } from '@angular/cdk/stepper';
 })
 export class SeleccionCoberturaComponent implements OnInit {
 
+  nuevaPoliza: Poliza;
+
   isLinear = false;
   firstFormGroup: FormGroup;
   secondFormGroup: FormGroup;
@@ -26,9 +30,12 @@ export class SeleccionCoberturaComponent implements OnInit {
 
   coberturas: Cobertura[];
 
-  constructor(private _formBuilder: FormBuilder, private coberturaService: CoberturaService) {}
+  constructor(private _formBuilder: FormBuilder, private coberturaService: CoberturaService, private stateService: StateService) {}
 
   ngOnInit() {
+
+    let mensaje = this.stateService.getOption();
+    console.log(mensaje);
     this.firstFormGroup = this._formBuilder.group({
       firstCtrl: ['', Validators.required]
     });

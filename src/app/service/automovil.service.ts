@@ -4,6 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import { map } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 import { Injectable } from '@angular/core';
+import { AñoVehiculo } from '../model/año-vehiculo';
 
 @Injectable({
   providedIn: 'root'
@@ -52,6 +53,26 @@ export class AutomovilService {
     console.log(modelos);
     
     return modelos;
+    }));
+  }
+
+  getAllAño(idMarca: number, idModelo: number): Observable<any> {
+    const url = `${this.apiUrl}/marca/${idMarca}/modelo/${idModelo}/añosFabricacion`;
+    return this.http.get<AñoVehiculo[]>(url).pipe(map(any => {
+      let añosFabricacion: AñoVehiculo[];
+    console.log(any);
+    
+    if(any == undefined){
+      return undefined
+    }
+    añosFabricacion = [];
+    for(let anio of any){    
+      let año = new AñoVehiculo(anio);
+      añosFabricacion.push(año)
+    };
+    console.log(añosFabricacion);
+    
+    return añosFabricacion;
     }));
   }
 

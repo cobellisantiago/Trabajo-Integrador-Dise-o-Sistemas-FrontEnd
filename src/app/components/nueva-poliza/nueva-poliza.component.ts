@@ -1,3 +1,5 @@
+import { StateService } from './../../state.service';
+import { Poliza } from './../../model/poliza';
 import { Hijo } from './../../model/hijo';
 import { Router } from '@angular/router';
 import { Modelo } from './../../model/modelo';
@@ -26,6 +28,7 @@ export interface Animal {
 
 export class NuevaPolizaComponent implements OnInit{
 
+  nuevaPoliza: Poliza;
   cliente: Cliente;
   domicilio: String;
   provincias: Provincia[];
@@ -48,9 +51,12 @@ export class NuevaPolizaComponent implements OnInit{
 
 
 
-  constructor(private domicilioService: DomicilioService, private ClienteService: ClienteService, private automovilService: AutomovilService, private router: Router) { } 
+  constructor(private domicilioService: DomicilioService, private ClienteService: ClienteService, private automovilService: AutomovilService, private router: Router, private stateService: StateService) { } 
 
   ngOnInit() {
+
+  
+
     let hijo: Hijo = {
       id : 0,
       fechaDeNacimiento : null,
@@ -74,11 +80,12 @@ export class NuevaPolizaComponent implements OnInit{
       console.log("Domicilio: "+this.cliente.domicilio);
       this.domicilio = this.cliente.domicilio.calle + " "+ this.cliente.domicilio.numero;      
     
+      this.nuevaPoliza
+    },
+      error => {console.log("No se puede obtener el cliente");
       if(this.cliente == undefined){
         this.polizaForm.controls['clienteFormControl'].setErrors({'required': true});
       }
-    },
-      error => {console.log("No se puede obtener el cliente");
       });
 
     this.domicilioService.getAllProvincia().subscribe(
@@ -137,7 +144,6 @@ export class NuevaPolizaComponent implements OnInit{
     };
     this.hijos.push(hijo);
     console.log(this.hijos);
-    
   }
 
   guardarHijo(){
@@ -154,6 +160,8 @@ export class NuevaPolizaComponent implements OnInit{
   }
 
   confirmar(){
+    let mensaje = "preubaaaa";
+    this.stateService.setOption('mensaje',mensaje);
     this.router.navigate(["/cobertura"]);
   }
   // get name() { return this.heroForm.get('name'); }
