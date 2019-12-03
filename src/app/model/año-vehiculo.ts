@@ -1,12 +1,12 @@
 export class AñoVehiculo {
 
     id: number;
-    año: number;
-    porcentajeRobo: number;
+    anio: number;
+    sumaAsegurada: number;
 
     constructor(any){
         this.id = any.id;
-        this.año = any.año;
-        this.porcentajeRobo = any.porcentajeRobo;
+        this.anio = any.año;
+        this.sumaAsegurada = any.sumaAsegurada;
     }
 }

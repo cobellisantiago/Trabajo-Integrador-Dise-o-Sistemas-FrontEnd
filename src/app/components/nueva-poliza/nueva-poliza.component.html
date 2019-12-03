@@ -100,7 +100,7 @@
                 <div fxLayout="column" fxLayoutAlign="space-arround start" style="padding-left: 2em;">
                     <mat-form-field appearance="outline" color="accent">
                         <mat-label>Modelo</mat-label>
-                        <mat-select placeholder="Seleccionar" [disabled]="marcaSelected==unsigned" formControlName="modeloFormControl" required>
+                        <mat-select placeholder="Seleccionar" [disabled]="marcaSelected==unsigned" [(value)]="modeloSelected" (selectionChange)="selectModeloChange($event.value)" formControlName="modeloFormControl" required>
                             <mat-option *ngFor="let modelo of modelos" [ngClass]=modelo value={{modelo?.id}}>
                                 {{modelo?.nombre}}</mat-option>
                         </mat-select>
@@ -110,25 +110,35 @@
                 <div fxLayout="column" fxLayoutAlign="space-arround start" style="padding-left: 2em;">
                     <mat-form-field appearance="outline" color="accent">
                         <mat-label>Año</mat-label>
-                        <mat-select placeholder="Seleccionar" [formControl]="animalControl" required>
-                            <mat-option value="option">Option</mat-option>
+                        <mat-select placeholder="Seleccionar" [disabled]="modeloSelected==unsigned" formControlName="anioFormControl" (selectionChange)="selectAnioChange($event.value)" required>
+                            <mat-option *ngFor="let anio of anios" [ngClass]=anio value={{anio?.id}}>
+                                {{anio?.anio}}</mat-option>
                         </mat-select>
-                        <mat-error *ngIf="animalControl.hasError('required')">Please choose an animal</mat-error>
+                        <mat-error *ngIf="anioFormControl.hasError('required')">Debe seleccionar un año de fabricacion</mat-error>
                     </mat-form-field>
                 </div>
             </div>
             <div fxLayout="row wrap" fxLayoutAlign="stretch">
                 <div fxLayout="column" fxLayoutAlign="space-arround start" style="padding-left: 2em;">
-                    <mat-form-field appearance="outline">
-                        <mat-label>Motor</mat-label>
-                        <input matInput placeholder="">
+                    <mat-form-field appearance="outline" >
+                        <mat-label>N° Motor</mat-label>
+                        <!-- <mat-hint>Debe ser de 17 caracteres</mat-hint> -->
+                        <input matInput #motorInput maxlength="17" placeholder="" formControlName="motorFormControl" required>
+                        <mat-hint align="end">{{motorInput.value.length}} / 17</mat-hint>
+                        <mat-error *ngIf="motorFormControl.hasError('minlength') && !motorFormControl.hasError('required')">Debe poseer 17 caracteres</mat-error>
+                        <!-- <mat-error *ngIf="motorFormControl.invalid">{{getErrorMessage()}}</mat-error> -->
+                        <mat-error *ngIf="motorFormControl.hasError('required')">Campo obligatorio</mat-error>
                         <!-- <mat-icon matSuffix>sentiment_very_satisfied</mat-icon> -->
                     </mat-form-field>
                 </div>
                 <div fxLayout="column" fxLayoutAlign="space-arround start" style="padding-left: 2em;">
                     <mat-form-field appearance="outline">
                         <mat-label>Chasis</mat-label>
-                        <input matInput placeholder="">
+                        <input matInput #chasisInput maxlength="17" placeholder=""  formControlName="chasisFormControl" required>
+                        <mat-hint align="end">{{chasisInput.value.length}} / 17</mat-hint>
+                        <mat-error *ngIf="chasisFormControl.hasError('minlength') && !chasisFormControl.hasError('required')">Debe poseer 17 caracteres</mat-error>
+                        <mat-error *ngIf="chasisFormControl.hasError('required')">Campo obligatorio</mat-error>
+                        <!-- <mat-error *ngIf="chasisFormControl.hasError('maxLength') && !chasisFormControl.hasError('required')">Debe poseer 17 caracteres</mat-error> -->
                         <!-- <mat-icon matSuffix>sentiment_very_satisfied</mat-icon> -->
 
                     </mat-form-field>
@@ -136,16 +146,23 @@
                 <div fxLayout="column" fxLayoutAlign="space-arround start" style="padding-left: 2em;">
                     <mat-form-field appearance="outline">
                         <mat-label>Patente</mat-label>
-                        <input matInput placeholder="">
+                        <input matInput placeholder="" formControlName="patenteFormControl" required>
+                        <mat-error *ngIf="patenteFormControl.hasError('formatoInvalido') && !patenteFormControl.hasError('required')">
+                            Formato invalido</mat-error>
+                        <mat-error *ngIf="patenteFormControl.hasError('required')">Campo obligatorio</mat-error>
                         <!-- <mat-icon matSuffix>sentiment_very_satisfied</mat-icon> -->
                     </mat-form-field>
                 </div>
                 <div fxLayout="column" fxLayoutAlign="space-arround start" style="padding-left: 2em;">
-                    <mat-form-field appearance="outline" color="accent" required>
+                    <mat-form-field appearance="outline">
                         <mat-label>Kilometros por año</mat-label>
-                        <mat-select placeholder="Seleccionar">
-                            <mat-option value="option">Option</mat-option>
-                        </mat-select>
+                        <input matInput type="number" #kmInput  placeholder=""  formControlName="kilometrosFormControl" required>
+                        <!-- <mat-hint align="end">{{chasisInput.value.length}} / 5</mat-hint> -->
+                        <mat-error *ngIf="kilometrosFormControl.hasError('max') && !kilometrosFormControl.hasError('required')">No debe ser mayor a 999,999</mat-error>
+                        <mat-error *ngIf="kilometrosFormControl.hasError('required')">Campo obligatorio</mat-error>
+                        <!-- <mat-error *ngIf="chasisFormControl.hasError('maxLength') && !chasisFormControl.hasError('required')">Debe poseer 17 caracteres</mat-error> -->
+                        <!-- <mat-icon matSuffix>sentiment_very_satisfied</mat-icon> -->
+
                     </mat-form-field>
                 </div>
             </div>
@@ -153,7 +170,7 @@
                 <div fxLayout="column" fxLayoutAlign="space-arround " style="padding-left: 2em;">
                     <mat-form-field appearance="outline">
                         <mat-label>Suma asegurada</mat-label>
-                        <input matInput placeholder="Placeholder">
+                        <input matInput placeholder="Placeholder" value={{sumaAsegurada}} disabled>
                         <!-- <mat-icon matSuffix>sentiment_very_satisfied</mat-icon> -->
                         <mat-hint>AR$</mat-hint>
                     </mat-form-field>
@@ -161,18 +178,19 @@
                 <div fxLayout="column" fxLayoutAlign="space-arround" style="padding-left: 2em;">
                     <mat-form-field appearance="outline">
                         <mat-label>Nº de siniestros</mat-label>
-                        <input matInput placeholder="Placeholder">
+                        <input matInput placeholder="Placeholder" value={{siniestros}} disabled> 
+                        <!-- Ninguno, uno, dos y más de dos. -->
                         <!-- <mat-icon matSuffix>sentiment_very_satisfied</mat-icon> -->
                         <mat-hint>En el ultimo año</mat-hint>
                     </mat-form-field>
                 </div>
                 <div fxLayout="column wrap" fxLayoutAlign="space-arround start" style="padding-left: 2em;">
-                    <mat-checkbox>Garage</mat-checkbox>
-                    <mat-checkbox>Tracking system</mat-checkbox>
+                    <mat-checkbox (change)="garage($event)">Garage</mat-checkbox>
+                    <mat-checkbox (change)="tracking($event)">Tracking system</mat-checkbox>
                 </div>
                 <div fxLayout="column" fxLayoutAlign="space-arround start" style="padding-left: 2em;">
-                    <mat-checkbox>Alarma</mat-checkbox>
-                    <mat-checkbox>Tuercas antirobo</mat-checkbox>
+                    <mat-checkbox (change)="alarma($event)" >Alarma</mat-checkbox>
+                    <mat-checkbox (change)="tuercas($event)" >Tuercas antirobo</mat-checkbox>
                 </div>
             </div>
             <div fxLayout="row" fxLayoutAlign="space-arround stretch" style="padding: 2em;">
@@ -209,24 +227,29 @@
 
                             <mat-form-field appearance="outline" color="accent" required>
                                 <mat-label>Sexo</mat-label>
-                                <mat-select placeholder="Seleccionar">
-                                    <mat-option value="option">Masculino</mat-option>
-                                    <mat-option value="option">Femenino</mat-option>
+                                <mat-select placeholder="Seleccionar" [(value)]="sexoSelected">
+                                    <mat-option value="Masculino">Masculino</mat-option>
+                                    <mat-option value="Femenino">Femenino</mat-option>
                                 </mat-select>
                             </mat-form-field>
 
 
                             <mat-form-field appearance="outline" color="accent" required>
                                 <mat-label>Estado civil</mat-label>
-                                <mat-select placeholder="Seleccionar">
-                                    <mat-option value="option">Option</mat-option>
+                                <mat-select placeholder="Seleccionar" [(value)]="estadoCivilSelected"> 
+                                    <mat-option value="Casado">Casado</mat-option>
+                                    <mat-option value="Soltero">Soltero</mat-option>
+                                    <mat-option value="Separado">Seprado</mat-option>
+                                    <mat-option value="Divorciado">Divorciado</mat-option>
+                                    <mat-option value="Viudo">Viudo</mat-option>
                                 </mat-select>
                             </mat-form-field>
 
                             <mat-form-field>
                                 <mat-label>Fecha de nacimiento</mat-label>
-                                <input matInput placeholder="Date" [matDatepicker]="picker" (focus)="picker.open()"
-                                    readonly>
+                                <input matInput [min]="minDate" [max]="maxDate" placeholder="Date" [matDatepicker]="picker"  (focus)="picker.open()"
+                                [(value)]="fechaNacimientoSelected">
+                                <mat-datepicker #picker startView="year" [startAt]="minDate"></mat-datepicker>
                             </mat-form-field>
                             <mat-datepicker #picker></mat-datepicker>
 

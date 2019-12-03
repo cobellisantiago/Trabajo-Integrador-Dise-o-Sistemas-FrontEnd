@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { NgModule, Component } from '@angular/core';
 import { HttpClientModule }    from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -24,17 +24,23 @@ import {MatIconModule} from '@angular/material/icon';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import {MatStepperModule} from '@angular/material/stepper';
 import { MatRadioModule } from '@angular/material';
+import {MatTableModule} from '@angular/material/table';
+import {MatDialogModule} from '@angular/material/dialog';
 
 import { MenuPrincipalComponent } from './components/menu-principal/menu-principal.component';
 import { NuevaPolizaComponent } from './components/nueva-poliza/nueva-poliza.component';
 import { SeleccionCoberturaComponent } from './components/seleccion-cobertura/seleccion-cobertura.component';
+import { RegistrarPagoComponent } from './components/registrar-pago/registrar-pago.component';
+import { BuscarClienteComponent } from './components/buscar-cliente/buscar-cliente.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     MenuPrincipalComponent,
     NuevaPolizaComponent,
-    SeleccionCoberturaComponent
+    SeleccionCoberturaComponent,
+    RegistrarPagoComponent,
+    BuscarClienteComponent
   ],
   imports: [
     BrowserModule,
@@ -60,9 +66,12 @@ import { SeleccionCoberturaComponent } from './components/seleccion-cobertura/se
     MatDatepickerModule,
     MatNativeDateModule,
     MatStepperModule,
-    MatRadioModule
+    MatRadioModule,
+    MatDialogModule,
+    MatTableModule
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  entryComponents: [BuscarClienteComponent]
 })
 export class AppModule { }

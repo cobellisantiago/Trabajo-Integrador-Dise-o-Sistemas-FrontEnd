@@ -37,5 +37,6 @@ export class Cliente {
         this.estado = any.estado;
         this.idDomicilio = any.idDomicilio;
         this.domicilio = any.domicilio;
+        
     }
 }

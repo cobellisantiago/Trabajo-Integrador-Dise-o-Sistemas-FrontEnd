@@ -56,8 +56,8 @@ export class AutomovilService {
     }));
   }
 
-  getAllAño(idMarca: number, idModelo: number): Observable<any> {
-    const url = `${this.apiUrl}/marca/${idMarca}/modelo/${idModelo}/añosFabricacion`;
+  getAllAño(idModelo: number): Observable<any> {
+    const url = `${this.apiUrl}/modelo/${idModelo}/aniosFabricacion`;
     return this.http.get<AñoVehiculo[]>(url).pipe(map(any => {
       let añosFabricacion: AñoVehiculo[];
     console.log(any);

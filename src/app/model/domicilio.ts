@@ -14,6 +14,7 @@ export class Domicilio {
         
         this.id = any.idDomicilio;
         this.calle = any.calle;
+        this.numero = any.numero;
         this.piso = any.piso;
         this.departamento = any.departamento;
         this.codigoPostal = any.codigoPostal;

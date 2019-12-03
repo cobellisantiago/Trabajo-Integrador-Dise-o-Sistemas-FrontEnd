@@ -1,10 +1,3 @@
-<p>seleccion-cobertura works!</p>
-
-
-
-<button mat-raised-button (click)="isLinear = !isLinear" id="toggle-linear">
-    {{!isLinear ? 'Enable linear mode' : 'Disable linear mode'}}
-  </button>
   <mat-vertical-stepper [linear]="isLinear" #stepper>
     <mat-step [stepControl]="firstFormGroup">
       <form [formGroup]="firstFormGroup">
@@ -57,10 +50,36 @@
           <ng-template matStepLabel>Forma de pago</ng-template>
         <form class="example-container" [formGroup]="tercerFormGroup">
             <div class="container" fxLayout="column wrap" fxLayoutAlign="space-evenly center">
-                <label>Seleccionar forma de pago: </label>
+                <!-- <label>Seleccionar forma de pago: </label> -->
                 <mat-radio-group formControlName="tercerCtrl">
-                    <mat-radio-button value="semestral">Pago mensual</mat-radio-button>
-                    <mat-radio-button value="mensual">Pago semestral</mat-radio-button>
+                  <div fxLayout="row" fxLayoutAlign="space-evenly">
+                  <mat-radio-button  value="semestral" style="margin: 1%">
+                    <mat-card>
+                      <mat-card-header>
+                        <div mat-car></div>
+                        <mat-card-title>Pago Mensual</mat-card-title>
+                      </mat-card-header>
+                      <mat-card-content>
+                        <p>
+                          Una cuota por mes, total de 6(seis) cuotas.
+                        </p>
+                      </mat-card-content>
+                    </mat-card>
+                  </mat-radio-button>
+                  <mat-radio-button  value="mensual" style="margin: 1%">
+                    <mat-card>
+                      <mat-card-header>
+                        <div mat-car></div>
+                        <mat-card-title>Pago Mensual</mat-card-title>
+                      </mat-card-header>
+                      <mat-card-content>
+                        <p>
+                          Una sola cuota por los 6(seis) meses.
+                        </p>
+                      </mat-card-content>
+                    </mat-card>
+                  </mat-radio-button>
+                </div>
                 </mat-radio-group>
             </div>
         </form>
@@ -70,12 +89,10 @@
           </div>
         </form>
       </mat-step>
-    <mat-step >
-      <ng-template matStepLabel>Done</ng-template>
-      You are now done.
-      <div>
-        <button mat-button matStepperPrevious>Back</button>
-        <button mat-button (click)="stepper.reset()">Reset</button>
-      </div>
-    </mat-step>
   </mat-vertical-stepper>
+  <div fxLayout="column" fxLayoutAlign="space-evenly stretch" class="fila">
+    <div fxLayout="row" fxLayoutAlign="end strech">
+        <button mat-raised-button type="button" style="background-color:#FFFFFF;" [routerLink]="['/menu']" >Cancelar</button>
+        <button mat-raised-button style="background-color:#36AE47;" type="submit"  [disabled]="true">Confimar</button>
+    </div>
+</div>

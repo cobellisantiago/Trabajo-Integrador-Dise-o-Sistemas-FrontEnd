@@ -1,3 +1,4 @@
+import { Observable } from 'rxjs';
 import { Injectable } from '@angular/core';
 
 @Injectable({
@@ -8,8 +9,8 @@ export class StateService {
 
   constructor() { }
 
-  public setOption(option, value) {  
-    debugger;  
+  public setOption(option, value){  
+   // debugger;  
     this.data[option] = value;  
   }  
 

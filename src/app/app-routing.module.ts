@@ -1,3 +1,5 @@
+import { BuscarClienteComponent } from './components/buscar-cliente/buscar-cliente.component';
+import { RegistrarPagoComponent } from './components/registrar-pago/registrar-pago.component';
 import { SeleccionCoberturaComponent } from './components/seleccion-cobertura/seleccion-cobertura.component';
 import { NuevaPolizaComponent } from './components/nueva-poliza/nueva-poliza.component';
 import { MenuPrincipalComponent } from './components/menu-principal/menu-principal.component'
@@ -14,6 +16,12 @@ const routes: Routes = [
   },
   { 
     path: 'cobertura',  component: SeleccionCoberturaComponent
+  },
+  {
+    path: 'pago', component: RegistrarPagoComponent
+  },
+  {
+    path: 'cliente', component: BuscarClienteComponent
   },
   { 
     path: '',   redirectTo: '/menu', pathMatch: 'prefix' 
