@@ -1,98 +1,101 @@
-  <mat-vertical-stepper [linear]="isLinear" #stepper>
-    <mat-step [stepControl]="firstFormGroup">
-      <form [formGroup]="firstFormGroup">
-        <ng-template matStepLabel>Seleccionar cobertura</ng-template>
-        <form class="example-container" [formGroup]="tercerFormGroup">
-                <div>
-                  <mat-radio-group formControlName="tercerCtrl" required>
-                    <div class="container" fxLayout="column wrap" fxLayoutAlign="space-evenly start">
-                        <div fxLayout="row" fxLayoutAlign="start" *ngFor="let cobertura of coberturas" >
-                        <mat-radio-button fxFlex="20" [value]="cobertura?.id" style="margin: 1%;
+<mat-vertical-stepper [linear]="isLinear" #stepper>
+  <mat-step [stepControl]="firstFormGroup">
+    <form [formGroup]="firstFormGroup">
+      <ng-template matStepLabel>Seleccionar cobertura</ng-template>
+      <form class="example-container" [formGroup]="firstFormGroup">
+        <div>
+          <mat-radio-group formControlName="firstCtrl" required>
+            <div class="container" fxLayout="column wrap" fxLayoutAlign="space-evenly start">
+              <h5 *ngIf="cobertura?.id!=0 && disabledRadioButton">*Solo puede seleccionar "Responsabilidad civil" debido a antiguedad vehiculo 10 o mas</h5>
+              <div fxLayout="row" fxLayoutAlign="start" *ngFor="let cobertura of coberturas">
+                <mat-radio-button fxFlex="20" [value]="cobertura?.id"
+                  [disabled]="cobertura?.id!=0 && disabledRadioButton" style="margin: 1%;
                         white-space: normal;">
-                            <mat-card>
-                                <mat-card-header>
-                                    <div mat-car></div>
-                                    <mat-card-title>{{cobertura?.nombre}}</mat-card-title>
-                                </mat-card-header>
-                                <mat-card-content>
-                                    <p>
-                                        {{cobertura?.descripcion}}
-                                    </p>
-                                </mat-card-content>
-                            </mat-card>
-                        </mat-radio-button>
-                        </div>
-                    </div>
-                  </mat-radio-group>
-                </div>
-              </form>
-        <div>
-          <button mat-button matStepperNext>Siguiente</button>
-        </div>
-      </form>
-    </mat-step>
-    <mat-step [stepControl]="secondFormGroup">
-      <form [formGroup]="secondFormGroup">
-        <ng-template matStepLabel>Fecha de inicio</ng-template>
-        <mat-form-field>
-                <input matInput [matDatepicker]="picker" placeholder="Seleccione una fecha" formControlName="secondCtrl" required>
-                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-                <mat-datepicker #picker></mat-datepicker>
-              </mat-form-field>
-        <div>
-          <button mat-button matStepperPrevious>Atras</button>
-          <button mat-button matStepperNext>Siguiente</button>
-        </div>
-      </form>
-    </mat-step>
-    <mat-step [stepControl]="tercerFormGroup">
-        <form [formGroup]="tercerFormGroup">
-          <ng-template matStepLabel>Forma de pago</ng-template>
-        <form class="example-container" [formGroup]="tercerFormGroup">
-            <div class="container" fxLayout="column wrap" fxLayoutAlign="space-evenly center">
-                <!-- <label>Seleccionar forma de pago: </label> -->
-                <mat-radio-group formControlName="tercerCtrl">
-                  <div fxLayout="row" fxLayoutAlign="space-evenly">
-                  <mat-radio-button  value="semestral" style="margin: 1%">
-                    <mat-card>
-                      <mat-card-header>
-                        <div mat-car></div>
-                        <mat-card-title>Pago Mensual</mat-card-title>
-                      </mat-card-header>
-                      <mat-card-content>
-                        <p>
-                          Una cuota por mes, total de 6(seis) cuotas.
-                        </p>
-                      </mat-card-content>
-                    </mat-card>
-                  </mat-radio-button>
-                  <mat-radio-button  value="mensual" style="margin: 1%">
-                    <mat-card>
-                      <mat-card-header>
-                        <div mat-car></div>
-                        <mat-card-title>Pago Mensual</mat-card-title>
-                      </mat-card-header>
-                      <mat-card-content>
-                        <p>
-                          Una sola cuota por los 6(seis) meses.
-                        </p>
-                      </mat-card-content>
-                    </mat-card>
-                  </mat-radio-button>
-                </div>
-                </mat-radio-group>
+                  <mat-card>
+                    <mat-card-header>
+                      <div mat-car></div>
+                      <mat-card-title>{{cobertura?.nombre}}</mat-card-title>
+                    </mat-card-header>
+                    <mat-card-content>
+                      <p>
+                        {{cobertura?.descripcion}}
+                      </p>
+                    </mat-card-content>
+                  </mat-card>
+                </mat-radio-button>
+              </div>
             </div>
-        </form>
-          <div>
-            <button mat-button matStepperPrevious>Atras</button>
-            <button mat-button matStepperNext>Siguiente</button>
-          </div>
-        </form>
-      </mat-step>
-  </mat-vertical-stepper>
-  <div fxLayout="column" fxLayoutAlign="space-evenly stretch" class="fila">
-    <div fxLayout="row" fxLayoutAlign="end strech">
-        <button mat-raised-button type="button" style="background-color:#FFFFFF;" [routerLink]="['/menu']" >Cancelar</button>
-        <button mat-raised-button style="background-color:#36AE47;" type="submit"  [disabled]="true">Confimar</button>
-    </div>
-</div>
+          </mat-radio-group>
+        </div>
+      </form>
+      <div>
+        <button mat-button matStepperNext>Siguiente</button>
+      </div>
+    </form>
+  </mat-step>
+  <mat-step [stepControl]="secondFormGroup">
+    <form [formGroup]="secondFormGroup">
+      <ng-template matStepLabel>Fecha de inicio</ng-template>
+      <mat-form-field>
+        <input matInput [min]="minDate" [max]="maxDate" [matDatepicker]="picker" placeholder="Seleccione una fecha" formControlName="secondCtrl"
+        (focus)="picker.open()" required>
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+      </mat-form-field>
+      <div>
+        <button mat-button matStepperPrevious>Atras</button>
+        <button mat-button matStepperNext>Siguiente</button>
+      </div>
+    </form>
+  </mat-step>
+  <mat-step [stepControl]="tercerFormGroup">
+    <form [formGroup]="tercerFormGroup">
+      <ng-template matStepLabel>Forma de pago</ng-template>
+      <form class="example-container" [formGroup]="tercerFormGroup">
+        <div class="container" fxLayout="column wrap" fxLayoutAlign="space-evenly center">
+          <!-- <label>Seleccionar forma de pago: </label> -->
+          <mat-radio-group formControlName="tercerCtrl">
+            <div fxLayout="row" fxLayoutAlign="space-evenly">
+              <mat-radio-button value="mensual" style="margin: 1%">
+                <mat-card>
+                  <mat-card-header>
+                    <div mat-car></div>
+                    <mat-card-title>Pago Mensual</mat-card-title>
+                  </mat-card-header>
+                  <mat-card-content>
+                    <p>
+                      Una cuota por mes, total de 6(seis) cuotas.
+                    </p>
+                  </mat-card-content>
+                </mat-card>
+              </mat-radio-button>
+              <mat-radio-button value="semestral" style="margin: 1%">
+                <mat-card>
+                  <mat-card-header>
+                    <div mat-car></div>
+                    <mat-card-title>Pago Semestral</mat-card-title>
+                  </mat-card-header>
+                  <mat-card-content>
+                    <p>
+                      Una sola cuota por los 6(seis) meses.
+                    </p>
+                  </mat-card-content>
+                </mat-card>
+              </mat-radio-button>
+            </div>
+          </mat-radio-group>
+        </div>
+      </form>
+      <div>
+        <button mat-button matStepperPrevious>Atras</button>
+        <button mat-button matStepperNext>Siguiente</button>
+      </div>
+    </form>
+  </mat-step>
+</mat-vertical-stepper>
+<div fxLayout="column" fxLayoutAlign="space-evenly stretch" class="fila">
+  <div fxLayout="row" fxLayoutAlign="end strech">
+    <button mat-raised-button type="button" style="background-color:#FFFFFF;" [routerLink]="['/menu']">Cancelar</button>
+    <button mat-raised-button style="background-color:#36AE47;" type="submit"
+      [disabled]="!firstFormGroup.valid || !secondFormGroup.valid || !tercerFormGroup.valid" (click)="guardar()">Confimar</button>
+  </div>

@@ -227,7 +227,7 @@
 
                             <mat-form-field appearance="outline" color="accent" required>
                                 <mat-label>Sexo</mat-label>
-                                <mat-select placeholder="Seleccionar" [(value)]="sexoSelected">
+                                <mat-select placeholder="Seleccionar" [(value)]="sexoSelected[i]">
                                     <mat-option value="Masculino">Masculino</mat-option>
                                     <mat-option value="Femenino">Femenino</mat-option>
                                 </mat-select>
@@ -236,7 +236,7 @@
 
                             <mat-form-field appearance="outline" color="accent" required>
                                 <mat-label>Estado civil</mat-label>
-                                <mat-select placeholder="Seleccionar" [(value)]="estadoCivilSelected"> 
+                                <mat-select placeholder="Seleccionar" [(value)]="estadoCivilSelected[i]"> 
                                     <mat-option value="Casado">Casado</mat-option>
                                     <mat-option value="Soltero">Soltero</mat-option>
                                     <mat-option value="Separado">Seprado</mat-option>
@@ -248,7 +248,7 @@
                             <mat-form-field>
                                 <mat-label>Fecha de nacimiento</mat-label>
                                 <input matInput [min]="minDate" [max]="maxDate" placeholder="Date" [matDatepicker]="picker"  (focus)="picker.open()"
-                                [(value)]="fechaNacimientoSelected">
+                                [(value)]="fechaNacimientoSelected" (dateChange)="DateChange($event,i)">
                                 <mat-datepicker #picker startView="year" [startAt]="minDate"></mat-datepicker>
                             </mat-form-field>
                             <mat-datepicker #picker></mat-datepicker>

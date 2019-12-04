@@ -1,3 +1,4 @@
+import { ConfirmarPolizaComponent } from './components/confirmar-poliza/confirmar-poliza.component';
 import { BuscarClienteComponent } from './components/buscar-cliente/buscar-cliente.component';
 import { RegistrarPagoComponent } from './components/registrar-pago/registrar-pago.component';
 import { SeleccionCoberturaComponent } from './components/seleccion-cobertura/seleccion-cobertura.component';
@@ -22,6 +23,9 @@ const routes: Routes = [
   },
   {
     path: 'cliente', component: BuscarClienteComponent
+  },
+  {
+    path: 'confirmar', component: ConfirmarPolizaComponent
   },
   { 
     path: '',   redirectTo: '/menu', pathMatch: 'prefix' 

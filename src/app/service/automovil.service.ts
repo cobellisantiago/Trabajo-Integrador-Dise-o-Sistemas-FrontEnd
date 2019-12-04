@@ -17,7 +17,7 @@ export class AutomovilService {
 
 
   getAllMarca(): Observable<any> {
-    const url = `${this.apiUrl}/marca`;
+    const url = `${this.apiUrl}/marcas`;
     return this.http.get<Marca[]>(url).pipe(map(any => {
       let marcas: Marca[];
     console.log(any);
@@ -36,6 +36,23 @@ export class AutomovilService {
     }));
   }
 
+  getMarca(id: number): Observable<any> {
+    const url = `${this.apiUrl}/marca?id=${id}`;
+    return this.http.get<Marca>(url).pipe(map(any => {
+
+      if(any == undefined){
+        return undefined
+      }
+
+    let marca = new Marca(any);
+    console.log(any);
+  
+    
+    return marca;
+    }));
+  }
+
+
   getAllModelo(idMarca: number): Observable<any> {
     const url = `${this.apiUrl}/marca/${idMarca}/modelo`;
     return this.http.get<Modelo[]>(url).pipe(map(any => {
@@ -48,6 +65,10 @@ export class AutomovilService {
     modelos = [];
     for(let model of any){    
       let modelo = new Modelo(model);
+      this.getMarca(modelo.idMarca).subscribe(marca => {modelo.marca = marca},
+        error => {console.log("No se puede obtener la marca");
+      }); 
+    
       modelos.push(modelo)
     };
     console.log(modelos);

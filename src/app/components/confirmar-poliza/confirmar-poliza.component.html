@@ -1,0 +1,214 @@
+<p>confirmar-poliza works!</p>
+<div fxLayout="column" fxLayoutAlign="space-evenly stretch"></div>
+<h1> Cliente</h1>
+<div class="container" fxLayout="column wrap" fxLayoutAlign="space-evenly start">
+    <div fxLayout="row" fxLayoutAlign="space-between stretch">
+        <div fxLayout="column" fxFlex="30" fxLayoutAlign="space-arround start" style="padding-left: 2em;">
+            <mat-form-field appearance="outline" color="accent">
+                <mat-label>Nombre</mat-label>
+                <input matInput placeholder="Placeholder" value={{cliente?.nombre}} disabled>
+                <!-- <mat-icon matSuffix>sentiment_very_satisfied</mat-icon> -->
+                <!-- <mat-hint>Hint</mat-hint> -->
+            </mat-form-field>
+        </div>
+        <div fxLayout="column" fxFlex="30" fxLayoutAlign="space-arround start" style="padding-left: 2em;">
+            <mat-form-field appearance="outline" color="accent">
+                <mat-label>Apellido</mat-label>
+                <input matInput placeholder="Placeholder" value={{cliente?.apellido}} disabled>
+                <!-- <mat-icon matSuffix>sentiment_very_satisfied</mat-icon> -->
+                <!-- <mat-hint>Hint</mat-hint> -->
+            </mat-form-field>
+        </div>
+    </div>
+    <!-- </div> -->
+    <!-- <div class="container" fxLayout="column wrap" fxLayoutAlign="space-evenly start"> -->
+</div>
+<mat-divider [inset]="true"></mat-divider>
+<h1>Poliza</h1>
+<div fxLayout="column" fxLayoutAlign="space-evenly stretch" class="fila">
+    <div fxLayout="row wrap" fxLayoutAlign="stretch">
+        <div fxLayout="column" fxLayoutAlign="space-arround start" style="padding-left: 2em;">
+            <mat-form-field appearance="outline" color="accent">
+                <mat-label>Marca</mat-label>
+                <input matInput placeholder="Placeholder" value={{nuevaPoliza?.modelo.marca.nombre}} disabled>
+                <!-- <mat-icon matSuffix>sentiment_very_satisfied</mat-icon> -->
+                <!-- <mat-hint>Hint</mat-hint> -->
+            </mat-form-field>
+        </div>
+        <!-- </div> -->
+        <!-- <div class="container" fxLayout="column wrap" fxLayoutAlign="space-evenly start"> -->
+        <div fxLayout="column" fxLayoutAlign="space-arround start" style="padding-left: 2em;">
+            <mat-form-field appearance="outline" color="accent">
+                <mat-label>Modelo</mat-label>
+                <input matInput placeholder="Placeholder" value="{{nuevaPoliza?.modelo.nombre}}" disabled>
+                <!-- <mat-icon matSuffix>sentiment_very_satisfied</mat-icon> -->
+                <!-- <mat-hint>Hint</mat-hint> -->
+            </mat-form-field>
+        </div>
+        <div fxLayout="column" fxLayoutAlign="space-arround start" style="padding-left: 2em;">
+            <mat-form-field appearance="outline" color="accent">
+                <mat-label>N° de motor</mat-label>
+                <input matInput placeholder="Placeholder" value={{nuevaPoliza?.motorVehiculo}} disabled color="black">
+                <!-- <mat-icon matSuffix>sentiment_very_satisfied</mat-icon> -->
+                <!-- <mat-hint>Hint</mat-hint> -->
+            </mat-form-field>
+        </div>
+        <div fxLayout="column" fxLayoutAlign="space-arround start" style="padding-left: 2em;">
+            <mat-form-field appearance="outline">
+                <mat-label>Chasis</mat-label>
+                <input matInput placeholder="Placeholder" value={{nuevaPoliza?.chasisVehiculo}} disabled color="black">
+            </mat-form-field>
+        </div>
+    </div>
+    <div fxLayout="row wrap" fxLayoutAlign="stretch">
+        <div fxLayout="column" fxLayoutAlign="space-arround start" style="padding-left: 2em;">
+            <mat-form-field appearance="outline">
+                <mat-label>Patente</mat-label>
+                <input matInput placeholder="Placeholder" value={{nuevaPoliza?.patente}} disabled color="black">
+                <!-- <mat-icon matSuffix>sentiment_very_satisfied</mat-icon> -->
+            </mat-form-field>
+        </div>
+        <div fxLayout="column" fxLayoutAlign="space-arround start" style="padding-left: 2em;">
+            <mat-form-field appearance="outline">
+                <mat-label>Suma asegurada</mat-label>
+                <input matInput placeholder="Placeholder" value={{nuevaPoliza?.sumaAsegurada}} disabled color="black">
+            </mat-form-field>
+        </div>
+        <div fxLayout="column" fxLayoutAlign="space-arround start" style="padding-left: 2em;">
+            <mat-form-field appearance="outline">
+                <mat-label>Fecha de inicio de vigencia</mat-label>
+                <input matInput placeholder="Placeholder" value={{fechaInicio}} disabled color="black">
+            </mat-form-field>
+        </div>
+        <div fxLayout="column" fxLayoutAlign="space-arround start" style="padding-left: 2em;">
+            <mat-form-field appearance="outline">
+                <mat-label>Fecha fin de vigencia</mat-label>
+                <input matInput placeholder="Placeholder" value={{fechaFin}} disabled color="black">
+            </mat-form-field>
+        </div>
+    </div>
+    <div fxLayout="row wrap" fxLayoutAlign="stretch">
+        <div fxLayout="column" fxLayoutAlign="space-arround start" style="padding-left: 2em;">
+            <mat-form-field appearance="outline">
+                <mat-label>Premio</mat-label>
+                <input matInput placeholder="Placeholder" value={{domicilio}} disabled color="black">
+                <!-- <mat-icon matSuffix>sentiment_very_satisfied</mat-icon> -->
+            </mat-form-field>
+        </div>
+        <div fxLayout="column" fxLayoutAlign="space-arround start" style="padding-left: 2em;">
+            <mat-form-field appearance="outline">
+                <mat-label>Importe por descuentos</mat-label>
+                <input matInput placeholder="Placeholder" value={{domicilio}} disabled color="black">
+            </mat-form-field>
+        </div>
+        <div fxLayout="column" fxLayoutAlign="space-arround stretch" style="padding-left: 2em;">
+            <mat-form-field appearance="outline">
+                <mat-label>Cobertura</mat-label>
+                <input matInput placeholder="Placeholder" value={{nuevaPoliza?.cobertura.nombre}} disabled
+                    color="black">
+            </mat-form-field>
+        </div>
+    </div>
+    <div *ngIf="mensual" fxLayout="row wrap" fxLayoutAlign="stretch">
+        <div fxLayout="column" fxLayoutAlign="space-arround start" style="padding-left: 2em; ">
+            <mat-form-field appearance="outline">
+                <mat-label>Monto 1° Cuota</mat-label>
+                <input matInput placeholder="Placeholder" value={{cuotas[0].valorActual}} disabled
+                    color="black">
+            </mat-form-field>
+        </div>
+        <div fxLayout="column" fxLayoutAlign="space-arround start" style="padding-left: 2em;">
+            <mat-form-field appearance="outline">
+                <mat-label>Fecha de vencimiento 1° cuota</mat-label>
+                <input matInput placeholder="Placeholder" value={{cuotas[0].fechaDeVencimiento}} disabled
+                    color="black">
+            </mat-form-field>
+        </div>
+        <div fxLayout="column" fxLayoutAlign="space-arround start" style="padding-left: 2em; ">
+            <mat-form-field appearance="outline">
+                <mat-label>Monto 2° Cuota</mat-label>
+                <input matInput placeholder="Placeholder" value={{cuotas[1].valorActual}} disabled
+                    color="black">
+            </mat-form-field>
+        </div>
+        <div fxLayout="column" fxLayoutAlign="space-arround start" style="padding-left: 2em;">
+            <mat-form-field appearance="outline">
+                <mat-label>Fecha de vencimiento 2° cuota</mat-label>
+                <input matInput placeholder="Placeholder" value={{cuotas[1].fechaDeVencimiento}} disabled
+                    color="black">
+            </mat-form-field>
+        </div>
+        <div fxLayout="column" fxLayoutAlign="space-arround start" style="padding-left: 2em; ">
+            <mat-form-field appearance="outline">
+                <mat-label>Monto 3° Cuota</mat-label>
+                <input matInput placeholder="Placeholder" value={{cuotas[2].valorActual}} disabled
+                    color="black">
+            </mat-form-field>
+        </div>
+        <div fxLayout="column" fxLayoutAlign="space-arround start" style="padding-left: 2em;">
+            <mat-form-field appearance="outline">
+                <mat-label>Fecha de vencimiento 3° cuota</mat-label>
+                <input matInput placeholder="Placeholder" value={cuotas[2].fechaDeVencimiento}} disabled
+                    color="black">
+            </mat-form-field>
+        </div>
+        <div fxLayout="column" fxLayoutAlign="space-arround start" style="padding-left: 2em; ">
+            <mat-form-field appearance="outline">
+                <mat-label>Monto 4° Cuota</mat-label>
+                <input matInput placeholder="Placeholder" value={{cuotas[3].valorActual}} disabled
+                    color="black">
+            </mat-form-field>
+        </div>
+        <div fxLayout="column" fxLayoutAlign="space-arround start" style="padding-left: 2em;">
+            <mat-form-field appearance="outline">
+                <mat-label>Fecha de vencimiento 4° cuota</mat-label>
+                <input matInput placeholder="Placeholder" value={{cuotas[3].fechaDeVencimiento}} disabled
+                    color="black">
+            </mat-form-field>
+        </div>
+        <div fxLayout="column" fxLayoutAlign="space-arround start" style="padding-left: 2em; ">
+            <mat-form-field appearance="outline">
+                <mat-label>Monto 5° Cuota</mat-label>
+                <input matInput placeholder="Placeholder" value={{cuotas[4].valorActual}} disabled
+                    color="black">
+            </mat-form-field>
+        </div>
+        <div fxLayout="column" fxLayoutAlign="space-arround start" style="padding-left: 2em;">
+            <mat-form-field appearance="outline">
+                <mat-label>Fecha de vencimiento 5° cuota</mat-label>
+                <input matInput placeholder="Placeholder" value={{cuotas[4].fechaDeVencimiento}} disabled
+                    color="black">
+            </mat-form-field>
+        </div>
+        <div fxLayout="column" fxLayoutAlign="space-arround start" style="padding-left: 2em; ">
+                <mat-form-field appearance="outline">
+                    <mat-label>Monto 6° Cuota</mat-label>
+                    <input matInput placeholder="Placeholder" value={{cuotas[5].valorActual}} disabled
+                        color="black">
+                </mat-form-field>
+            </div>
+            <div fxLayout="column" fxLayoutAlign="space-arround start" style="padding-left: 2em;">
+                <mat-form-field appearance="outline">
+                    <mat-label>Fecha de vencimiento 6° cuota</mat-label>
+                    <input matInput placeholder="Placeholder" value={{cuotas[5].fechaDeVencimiento}} disabled
+                        color="black">
+                </mat-form-field>
+            </div>
+    </div>
+    <div fxLayout="row wrap" fxLayoutAlign="stretch">
+        <div fxLayout="column" fxLayoutAlign="space-arround start" style="padding-left: 2em;">
+            <mat-form-field appearance="outline">
+                <mat-label>Monto total a abonar</mat-label>
+                <input matInput placeholder="Placeholder" value={{nuevaPoliza?.cobertura.nombre}} disabled
+                    color="black">
+            </mat-form-field>
+        </div>
+        <div fxLayout="column" fxLayoutAlign="space-arround start" style="padding-left: 2em;">
+            <mat-form-field appearance="outline">
+                <mat-label>Ultimo dia de pago</mat-label>
+                <input matInput placeholder="Placeholder" value={{nuevaPoliza?.cobertura.nombre}} disabled
+                    color="black">
+            </mat-form-field>
+        </div>
+    </div>
+</div>

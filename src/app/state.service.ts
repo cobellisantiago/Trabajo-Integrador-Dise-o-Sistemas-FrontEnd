@@ -14,8 +14,8 @@ export class StateService {
     this.data[option] = value;  
   }  
 
-  public getOption() {  
-    return this.data;  
+  public getOption(option) {  
+    return this.data[option];  
   }
 }
   

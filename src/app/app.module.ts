@@ -32,6 +32,7 @@ import { NuevaPolizaComponent } from './components/nueva-poliza/nueva-poliza.com
 import { SeleccionCoberturaComponent } from './components/seleccion-cobertura/seleccion-cobertura.component';
 import { RegistrarPagoComponent } from './components/registrar-pago/registrar-pago.component';
 import { BuscarClienteComponent } from './components/buscar-cliente/buscar-cliente.component';
+import { ConfirmarPolizaComponent } from './components/confirmar-poliza/confirmar-poliza.component';
 
 @NgModule({
   declarations: [
@@ -40,7 +41,8 @@ import { BuscarClienteComponent } from './components/buscar-cliente/buscar-clien
     NuevaPolizaComponent,
     SeleccionCoberturaComponent,
     RegistrarPagoComponent,
-    BuscarClienteComponent
+    BuscarClienteComponent,
+    ConfirmarPolizaComponent
   ],
   imports: [
     BrowserModule,

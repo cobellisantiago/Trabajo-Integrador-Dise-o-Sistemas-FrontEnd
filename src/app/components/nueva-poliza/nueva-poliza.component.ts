@@ -55,8 +55,8 @@ export class NuevaPolizaComponent implements OnInit {
   ];
   medidasSeguridad: MedidasDeSeguridad;
 
-  sexoSelected: string;
-  estadoCivilSelected: string;
+  sexoSelected: string[]=[];
+  estadoCivilSelected: string[]=[];
   fechaNacimientoSelected: Date;
   today = new Date()
   startDate = new Date(2001, 0, 1);
@@ -274,12 +274,12 @@ export class NuevaPolizaComponent implements OnInit {
 
   guardarHijo(i) {
     let hijo = this.hijos[i];
-    hijo.sexo = this.sexoSelected;
-    hijo.estadoCivil = this.estadoCivilSelected;
+    hijo.sexo = this.sexoSelected[i];
+    hijo.estadoCivil = this.estadoCivilSelected[i];
 
     console.log(this.fechaNacimientoSelected);
     
-    hijo.fechaDeNacimiento = this.fechaNacimientoSelected;
+    //hijo.fechaDeNacimiento = this.fechaNacimientoSelected;
 
     console.log(this.hijos);
     
@@ -294,7 +294,12 @@ export class NuevaPolizaComponent implements OnInit {
     this.hijos = this.hijos.filter(obj => obj.id !== hijo.id);
   }
 
-
+  DateChange(event,i){
+    let hijo = this.hijos[i];
+    console.log("Cambio fecha hijo: "+event.value);
+    
+    hijo.fechaDeNacimiento = new Date(event.value);
+  }
 
   public customPatternValid(config: any): ValidatorFn {
     return (control: FormControl) => {

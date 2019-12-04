@@ -5,6 +5,7 @@ import { CoberturaService } from './../../service/cobertura.service';
 import { Component, OnInit } from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import { MAT_STEPPER_GLOBAL_OPTIONS } from '@angular/cdk/stepper';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -17,8 +18,6 @@ import { MAT_STEPPER_GLOBAL_OPTIONS } from '@angular/cdk/stepper';
 })
 export class SeleccionCoberturaComponent implements OnInit {
 
-  nuevaPoliza: Poliza;
-
   isLinear = false;
   firstFormGroup: FormGroup;
   secondFormGroup: FormGroup;
@@ -29,13 +28,25 @@ export class SeleccionCoberturaComponent implements OnInit {
   disabled = false;
 
   coberturas: Cobertura[];
+  nuevaPoliza: Poliza;
+  disabledRadioButton: Boolean;
+  today = new Date()
+  maxDate = new Date(this.today.getFullYear(),this.today.getMonth()+1,this.today.getUTCDate());
+  minDate = new Date(this.today.getFullYear(),this.today.getMonth(),this.today.getUTCDate()+1);
 
-  constructor(private _formBuilder: FormBuilder, private coberturaService: CoberturaService, private stateService: StateService) {}
+
+
+  constructor(private _formBuilder: FormBuilder, private coberturaService: CoberturaService, private stateService: StateService, private router: Router) {}
 
   ngOnInit() {
 
-    let mensaje = this.stateService.getOption();
+    let mensaje = this.stateService.getOption('nuevaPoliza');
     console.log(mensaje);
+    this.nuevaPoliza = this.stateService.getOption('nuevaPoliza')
+    console.log("Nueva poliza: "+this.nuevaPoliza);
+    
+    if(this.nuevaPoliza.añoVehiculo.anio<2010) this.disabledRadioButton = true;
+    
     this.firstFormGroup = this._formBuilder.group({
       firstCtrl: ['', Validators.required]
     });
@@ -55,4 +66,20 @@ export class SeleccionCoberturaComponent implements OnInit {
         
       });
   }
+
+  guardar(){
+    console.log( this.coberturas[this.firstFormGroup.get('firstCtrl').value]);
+    
+    this.nuevaPoliza.cobertura = this.coberturas[this.firstFormGroup.get('firstCtrl').value];
+    this.nuevaPoliza.fechaInicioVigencia = this.secondFormGroup.get('secondCtrl').value;
+    this.nuevaPoliza.formaDePago = this.tercerFormGroup.get('tercerCtrl').value;
+
+    console.log(this.nuevaPoliza);
+    this.stateService.setOption('nuevaPoliza', this.nuevaPoliza);
+    this.router.navigate(["/confirmar"]);
+  }
+
+  getfirstCtrl(){ this.firstFormGroup.get('firstCtrl'); }
+  getsecondCtrl(){ this.secondFormGroup.get('secondCtrl'); }
+  gettercerCtrl(){ this.tercerFormGroup.get('tercerCtrl'); }
 }
