@@ -16,7 +16,7 @@ export class ClienteService {
 
   constructor(private http: HttpClient, private domicilioService: DomicilioService) { }
 
-  getCliente(id: number): Observable<any> {
+  getCliente(id: string): Observable<any> {
     const url = `${this.apiUrl}/${id}`;
     return this.http.get<Cliente>(url).pipe(map( any => {
       console.log("Cliente recibidio: "+any);
@@ -39,7 +39,7 @@ export class ClienteService {
     return this.http.get<String>(url);
   }
 
-  getClientes(id: number,apellido: string, nombre: string, tipoDeDocumento: string, numeroDeDocumento: number): Observable<any>{
+  getClientes(id: string,apellido: string, nombre: string, tipoDeDocumento: string, numeroDeDocumento: number): Observable<any>{
     let url = `${this.apiUrl}?`;
     if(id != undefined) url +=`id=${(id.toString())}`;
     if(apellido != undefined) url +=`apellido=${apellido}`;

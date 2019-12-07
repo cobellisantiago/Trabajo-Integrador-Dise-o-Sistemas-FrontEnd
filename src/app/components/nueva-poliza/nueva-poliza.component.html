@@ -205,60 +205,68 @@
                         </mat-panel-description>
                     </mat-expansion-panel-header>
 
-                    <!-- <mat-form-field>
-                              <input matInput placeholder="First name">
-                            </mat-form-field>
-                        
-                            <mat-form-field>
-                              <input matInput type="number" min="1" placeholder="Age">
-                            </mat-form-field> -->
-                    
-                        <mat-expansion-panel *ngFor="let a of hijos; let i = index" hideToggle style="margin-top: 1em;">
-                            <mat-expansion-panel-header>
-                                <mat-panel-title>
-                                    Datos hijo/a
-                                </mat-panel-title>
-                                <mat-panel-description>
-                                    Ingrese datos del hijos/as
-                                    <mat-icon>person_add</mat-icon>
-                                </mat-panel-description>
-                            </mat-expansion-panel-header>
+                    <table
+    *ngIf="hijos.length!=0"
+    mat-table
+    [dataSource]="dataSource"
+    class="mat-elevation-z2 table"
+  >
+    <!-- Checkbox Column -->
+    <ng-container matColumnDef="select">
+      <th mat-header-cell *matHeaderCellDef>
+        <mat-checkbox
+          (change)="$event ? masterToggle() : null"
+          [checked]="selection.hasValue() && isAllSelected()"
+          [indeterminate]="selection.hasValue() && !isAllSelected()"
+          [aria-label]="checkboxLabel()"
+        >
+        </mat-checkbox>
+      </th>
+      <td mat-cell *matCellDef="let row">
+        <mat-checkbox
+          (click)="$event.stopPropagation()"
+          (change)="$event ? selection.toggle(row) : null"
+          [checked]="selection.isSelected(row)"
+          [aria-label]="checkboxLabel(row)"
+        >
+        </mat-checkbox>
+      </td>
+    </ng-container>
 
+    <!-- Weight Column -->
+    <ng-container matColumnDef="weight">
+      <th mat-header-cell *matHeaderCellDef>Sexo</th>
+      <td mat-cell *matCellDef="let element">{{ element.sexo }}</td>
+    </ng-container>
 
-                            <mat-form-field appearance="outline" color="accent" required>
-                                <mat-label>Sexo</mat-label>
-                                <mat-select placeholder="Seleccionar" [(value)]="sexoSelected[i]">
-                                    <mat-option value="Masculino">Masculino</mat-option>
-                                    <mat-option value="Femenino">Femenino</mat-option>
-                                </mat-select>
-                            </mat-form-field>
+    <!-- Symbol Column -->
+    <ng-container matColumnDef="symbol">
+      <th mat-header-cell *matHeaderCellDef>Estado civil</th>
+      <td mat-cell *matCellDef="let element">{{ element.estadoCivil }}</td>
+    </ng-container>
 
+    <ng-container matColumnDef="symbol2">
+      <th mat-header-cell *matHeaderCellDef>Fecha de nacimiento</th>
+      <td mat-cell *matCellDef="let element">
+        {{ element.fechaDeNacimiento.toLocalDateString}}
+      </td>
+    </ng-container>
 
-                            <mat-form-field appearance="outline" color="accent" required>
-                                <mat-label>Estado civil</mat-label>
-                                <mat-select placeholder="Seleccionar" [(value)]="estadoCivilSelected[i]"> 
-                                    <mat-option value="Casado">Casado</mat-option>
-                                    <mat-option value="Soltero">Soltero</mat-option>
-                                    <mat-option value="Separado">Seprado</mat-option>
-                                    <mat-option value="Divorciado">Divorciado</mat-option>
-                                    <mat-option value="Viudo">Viudo</mat-option>
-                                </mat-select>
-                            </mat-form-field>
-
-                            <mat-form-field>
-                                <mat-label>Fecha de nacimiento</mat-label>
-                                <input matInput [min]="minDate" [max]="maxDate" placeholder="Date" [matDatepicker]="picker"  (focus)="picker.open()"
-                                [(value)]="fechaNacimientoSelected" (dateChange)="DateChange($event,i)">
-                                <mat-datepicker #picker startView="year" [startAt]="minDate"></mat-datepicker>
-                            </mat-form-field>
-                            <mat-datepicker #picker></mat-datepicker>
-
-
-                            <mat-action-row>
-                                <button type="button" mat-button color="warn" (click)="borrarHijo(i)">Borrar</button>
-                                <button type="button"mat-button color="primary" (click)="guardarHijo(i)">guardar</button>
-                            </mat-action-row>
-                        </mat-expansion-panel>
+    <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+    <tr
+      mat-row
+      *matRowDef="let row; columns: displayedColumns"
+      (click)="selection.toggle(row)"
+      [ngClass]="{
+        hovered: row.hovered,
+        highlighted: selection.isSelected(row)
+      }"
+      (mouseover)="row.hovered = true"
+      (mouseout)="row.hovered = false"
+    >
+      >
+    </tr>
+  </table>
                         <button mat-button type="button" color="warn" (click)="agregarHijo()">Agregar hijo</button>
                    
                 </mat-expansion-panel>

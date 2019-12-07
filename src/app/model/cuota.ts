@@ -14,10 +14,13 @@ export class Cuota {
 
     this.id = any.idCouta;
     this.numeroCuota = any.numeroCuota;
-    this.fechaDeVencimiento = any.fechaDeVencimiento;
+    if(any.fechaDeVencimiento == undefined){
+      this.fechaDeVencimiento = new Date()
+    }else{
+      this.fechaDeVencimiento = new Date(any.fechaDeVencimiento);
+    }
     this.valorActual = any.valorActual;
     this.valorOriginal = any.valorOriginal;
-    
   }
 
 }

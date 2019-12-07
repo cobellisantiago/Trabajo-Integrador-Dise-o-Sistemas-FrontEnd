@@ -2,8 +2,8 @@ export class Hijo {
 
     id: number;
     fechaDeNacimiento: Date;
-    estadoCivil: string;
-    sexo: string;
+    estadoCivil: number;
+    sexo: number;
 
     constructor(any){
         this.id = any.id;

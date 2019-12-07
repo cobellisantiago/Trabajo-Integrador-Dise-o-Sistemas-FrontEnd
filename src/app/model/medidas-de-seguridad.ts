@@ -12,5 +12,6 @@ export class MedidasDeSeguridad {
         this.seGuardaEnGarage = any.seGuardaEnGarage;
         this.rastreo = any.rastreo;
         this.tuercasAntirobo = any.tuercasAntirobo;
+       
     }
 }

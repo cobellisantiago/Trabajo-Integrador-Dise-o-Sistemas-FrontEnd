@@ -18,7 +18,7 @@ export class BuscarClienteComponent implements OnInit {
   tiposDocumento: String[];
   clientes: Cliente[];
 
-  id: number;
+  id: string;
   nombre: string;
   apellido: string;
   tipoDocumento: string;
@@ -67,6 +67,7 @@ export class BuscarClienteComponent implements OnInit {
   }
 
   buscar(){
+    if(this.id=="")this.id = undefined;
     if(this.apellido=="")this.apellido = undefined;
     if(this.nombre=="")this.nombre = undefined;
     

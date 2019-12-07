@@ -33,6 +33,7 @@ import { SeleccionCoberturaComponent } from './components/seleccion-cobertura/se
 import { RegistrarPagoComponent } from './components/registrar-pago/registrar-pago.component';
 import { BuscarClienteComponent } from './components/buscar-cliente/buscar-cliente.component';
 import { ConfirmarPolizaComponent } from './components/confirmar-poliza/confirmar-poliza.component';
+import { AgregarHijoComponent } from './components/agregar-hijo/agregar-hijo.component';
 
 @NgModule({
   declarations: [
@@ -42,7 +43,8 @@ import { ConfirmarPolizaComponent } from './components/confirmar-poliza/confirma
     SeleccionCoberturaComponent,
     RegistrarPagoComponent,
     BuscarClienteComponent,
-    ConfirmarPolizaComponent
+    ConfirmarPolizaComponent,
+    AgregarHijoComponent
   ],
   imports: [
     BrowserModule,
@@ -74,6 +76,6 @@ import { ConfirmarPolizaComponent } from './components/confirmar-poliza/confirma
   ],
   providers: [],
   bootstrap: [AppComponent],
-  entryComponents: [BuscarClienteComponent]
+  entryComponents: [BuscarClienteComponent,AgregarHijoComponent]
 })
 export class AppModule { }

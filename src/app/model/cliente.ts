@@ -1,7 +1,7 @@
 import { Domicilio } from './domicilio';
 export class Cliente {
 
-    id: number;
+    id: string;
     tipoDeDocumento: string;
     numeroDeDocumento: string;
     apellido: string;

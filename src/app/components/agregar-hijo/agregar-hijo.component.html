@@ -1,0 +1,83 @@
+<p>agregar-hijo works!</p>
+<h2 mat-dialog-title>Agregar Hijo <mat-icon>person_add</mat-icon></h2>
+
+<mat-dialog-content class="text">
+  <div fxLayout="column" fxLayoutAlign="space-evenly stretch">
+    <!-- <mat-divider [inset]="true"></mat-divider> -->
+    <div
+      class="container"
+      fxLayout="column wrap"
+      fxLayoutAlign="space-evenly start"
+    >
+      <div fxLayout="row wrap" fxLayoutAlign="space-arround stretch">
+        <div
+          fxLayout="column"
+          fxLayoutAlign="space-arround start"
+          style="padding-left: 2em;"
+        >
+          <mat-form-field appearance="outline" color="accent" required>
+            <mat-label>Sexo</mat-label>
+            <mat-select placeholder="Seleccionar" [(value)]="sexoSelected">
+              <mat-option value="Masculino">Masculino</mat-option>
+              <mat-option value="Femenino">Femenino</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div
+          fxLayout="column"
+          fxLayoutAlign="space-arround start"
+          style="padding-left: 2em;"
+        >
+          <mat-form-field appearance="outline" color="accent" required>
+            <mat-label>Estado civil</mat-label>
+            <mat-select
+              placeholder="Seleccionar"
+              [(value)]="estadoCivilSelected"
+            >
+              <mat-option value="Casado">Casado</mat-option>
+              <mat-option value="Soltero">Soltero</mat-option>
+              <mat-option value="Separado">Seprado</mat-option>
+              <mat-option value="Divorciado">Divorciado</mat-option>
+              <mat-option value="Viudo">Viudo</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div
+          fxLayout="column"
+          fxLayoutAlign="space-arround start"
+          style="padding-left: 2em;"
+        >
+          <mat-form-field>
+            <mat-label>Fecha de nacimiento</mat-label>
+            <input
+              matInput
+              [min]="minDate"
+              [max]="maxDate"
+              placeholder="Date"
+              [matDatepicker]="picker"
+              (focus)="picker.open()"
+              [(value)]="fechaNacimientoSelected"
+              
+            />
+            <mat-datepicker
+              #picker
+              startView="year"
+              [startAt]="minDate"
+            ></mat-datepicker>
+          </mat-form-field>
+          <mat-datepicker #picker></mat-datepicker>
+        </div>
+      </div>
+    </div>
+  </div>
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button
+    mat-stroked-button
+    [mat-dialog-close]="true"
+    color="accent"
+    (click)="seleccionarCliente()"
+  >
+    Aceptar
+  </button>
+</mat-dialog-actions>

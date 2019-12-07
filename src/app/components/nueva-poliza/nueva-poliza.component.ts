@@ -1,41 +1,52 @@
-import { MedidasDeSeguridad } from './../../model/medidas-de-seguridad';
-import { StateService } from './../../state.service';
-import { Poliza } from './../../model/poliza';
-import { Hijo } from './../../model/hijo';
-import { Router } from '@angular/router';
-import { Modelo } from './../../model/modelo';
-import { AutomovilService } from './../../service/automovil.service';
-import { Marca } from './../../model/marca';
-import { Localidad } from './../../model/localidad';
-import { Provincia } from './../../model/provincia';
-import { ClienteService } from './../../service/cliente.service';
-import { DomicilioService } from './../../service/domicilio.service';
-import { Cliente } from './../../model/cliente';
-import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl, Validators, FormGroupDirective, NgForm, AbstractControl, ValidatorFn } from '@angular/forms';
-import { Domicilio } from 'src/app/model/domicilio';
-import { AñoVehiculo } from 'src/app/model/año-vehiculo';
-import { ErrorStateMatcher, MatDialog, MatDialogConfig } from '@angular/material';
-import { BuscarClienteComponent } from '../buscar-cliente/buscar-cliente.component';
-
-
+import { MedidasDeSeguridadService } from './../../service/medidas-de-seguridad.service';
+import { SelectionModel } from "@angular/cdk/collections";
+import { AgregarHijoComponent } from "./../agregar-hijo/agregar-hijo.component";
+import { MedidasDeSeguridad } from "./../../model/medidas-de-seguridad";
+import { StateService } from "./../../state.service";
+import { Poliza } from "./../../model/poliza";
+import { Hijo } from "./../../model/hijo";
+import { Router } from "@angular/router";
+import { Modelo } from "./../../model/modelo";
+import { AutomovilService } from "./../../service/automovil.service";
+import { Marca } from "./../../model/marca";
+import { Localidad } from "./../../model/localidad";
+import { Provincia } from "./../../model/provincia";
+import { ClienteService } from "./../../service/cliente.service";
+import { DomicilioService } from "./../../service/domicilio.service";
+import { Cliente } from "./../../model/cliente";
+import { Component, OnInit } from "@angular/core";
+import {
+  FormGroup,
+  FormControl,
+  Validators,
+  FormGroupDirective,
+  NgForm,
+  AbstractControl,
+  ValidatorFn
+} from "@angular/forms";
+import { Domicilio } from "src/app/model/domicilio";
+import { AñoVehiculo } from "src/app/model/año-vehiculo";
+import {
+  ErrorStateMatcher,
+  MatDialog,
+  MatDialogConfig,
+  MatTableDataSource
+} from "@angular/material";
+import { BuscarClienteComponent } from "../buscar-cliente/buscar-cliente.component";
 
 export function patenteValidator(nameRe: RegExp): ValidatorFn {
   return (control: AbstractControl): { [key: string]: any } | null => {
     const forbidden = nameRe.test(control.value);
-    return forbidden ? { 'forbiddenName': { value: control.value } } : null;
+    return forbidden ? { forbiddenName: { value: control.value } } : null;
   };
 }
 
 @Component({
-  selector: 'app-nueva-poliza',
-  templateUrl: './nueva-poliza.component.html',
-  styleUrls: ['./nueva-poliza.component.css']
+  selector: "app-nueva-poliza",
+  templateUrl: "./nueva-poliza.component.html",
+  styleUrls: ["./nueva-poliza.component.css"]
 })
-
-
 export class NuevaPolizaComponent implements OnInit {
-
   //nuevaPoliza: Poliza;
   cliente: Cliente;
   domicilio: String;
@@ -48,74 +59,113 @@ export class NuevaPolizaComponent implements OnInit {
   cantidadHijos: number;
   sumaAsegurada: number;
   siniestros: string;
-  siniestrosValores: string[]=[
-    '1 (uno)',
-    '2 (dos)',
-    '>3 (tres o mas)'
-  ];
+  siniestrosValores: string[] = ["1 (uno)", "2 (dos)", ">3 (tres o mas)"];
   medidasSeguridad: MedidasDeSeguridad;
 
-  sexoSelected: string[]=[];
-  estadoCivilSelected: string[]=[];
+  sexoSelected: string[] = [];
+  estadoCivilSelected: string[] = [];
   fechaNacimientoSelected: Date;
-  today = new Date()
+  today = new Date();
   startDate = new Date(2001, 0, 1);
-  maxDate = new Date(this.today.getFullYear()-18,this.today.getMonth(),this.today.getUTCDate()-1);
-  minDate = new Date(this.today.getFullYear()-30,this.today.getMonth(),this.today.getUTCDate());
+  maxDate = new Date(
+    this.today.getFullYear() - 18,
+    this.today.getMonth(),
+    this.today.getUTCDate() - 1
+  );
+  minDate = new Date(
+    this.today.getFullYear() - 30,
+    this.today.getMonth(),
+    this.today.getUTCDate()
+  );
 
   polizaForm: FormGroup;
 
+  clienteSeleccionado: Cliente;
 
+  displayedColumns: string[] = ["weight", "symbol", "symbol2"];
+  dataSource: MatTableDataSource<Hijo>;
+  selection = new SelectionModel<Hijo>(false, []);
 
+  /** Whether the number of selected elements matches the total number of rows. */
+  isAllSelected() {
+    const numSelected = this.selection.selected.length;
+    const numRows = this.dataSource.data.length;
+    return numSelected === numRows;
+  }
 
-  constructor(private domicilioService: DomicilioService, private ClienteService: ClienteService, private automovilService: AutomovilService, private router: Router, private stateService: StateService, public dialog: MatDialog) { }
+  /** Selects all rows if they are not all selected; otherwise clear selection. */
+  masterToggle() {
+    this.isAllSelected()
+      ? this.selection.clear()
+      : this.dataSource.data.forEach(row => this.selection.select(row));
+  }
+
+  /** The label for the checkbox on the passed row */
+  checkboxLabel(row?: Hijo): string {
+    if (!row) {
+      return `${this.isAllSelected() ? "select" : "deselect"} all`;
+    }
+    return `${this.selection.isSelected(row) ? "deselect" : "select"} row ${
+      row.id
+    }`;
+  }
+
+  constructor(
+    private domicilioService: DomicilioService,
+    private ClienteService: ClienteService,
+    private automovilService: AutomovilService,
+    private medidasService: MedidasDeSeguridadService,
+    private router: Router,
+    private stateService: StateService,
+    public dialog: MatDialog,
+    public diaglogHijo: MatDialog
+  ) {}
 
   ngOnInit() {
-
-    console.log(this.today);
-    console.log("Max date: "+ this.maxDate);
-    console.log("Min date: "+ this.minDate);
-    
-    
-
     this.showDialog();
-    
+    this.hijos = [];
+    this.dataSource = new MatTableDataSource(this.hijos);
 
-    let hijo: Hijo = {
-      id: 0,
-      fechaDeNacimiento: null,
-      sexo: null,
-      estadoCivil: null
-    };
+   
     this.cantidadHijos = 0;
     this.medidasSeguridad = new MedidasDeSeguridad({
-        id: 0,
-        seGuardaEnGarage: false,
-        rastreo: false,
-        alarma: false,
-        tuercasAntirobo: false
+      id: 0,
+      seGuardaEnGarage: false,
+      rastreo: false,
+      alarma: false,
+      tuercasAntirobo: false
     });
 
-    
-
-    this.hijos = [hijo];
     this.polizaForm = new FormGroup({
-      clienteFormControl: new FormControl({ value: this.cliente, disabled: true}, Validators.required),
-      provinciaFormControl: new FormControl('', Validators.required),
-      localidadFormControl: new FormControl('', Validators.required),
-      marcaFormControl: new FormControl('', Validators.required),
-      modeloFormControl: new FormControl('', Validators.required),
-      anioFormControl: new FormControl('', Validators.required),
-      motorFormControl: new FormControl('', [Validators.required, Validators.minLength(17)]),
-      chasisFormControl: new FormControl('', [Validators.required, Validators.minLength(17)]),
-      patenteFormControl: new FormControl('', [Validators.required, formatoInvalidoValidator(
-        /(^[A-Z][A-Z][A-z][0-9][0-9][0-9]$)|(^[A-Z][A-Z][0-9][0-9][0-9][A-z][A-z]$)/i) // <-- Here's how you pass in the custom validator.
+      clienteFormControl: new FormControl(
+        { value: this.cliente, disabled: true },
+        Validators.required
+      ),
+      provinciaFormControl: new FormControl("", Validators.required),
+      localidadFormControl: new FormControl("", Validators.required),
+      marcaFormControl: new FormControl("", Validators.required),
+      modeloFormControl: new FormControl("", Validators.required),
+      anioFormControl: new FormControl("", Validators.required),
+      motorFormControl: new FormControl("", [
+        Validators.required,
+        Validators.minLength(17)
       ]),
-      kilometrosFormControl: new FormControl('', [Validators.required, Validators.max(999999)])
+      chasisFormControl: new FormControl("", [
+        Validators.required,
+        Validators.minLength(17)
+      ]),
+      patenteFormControl: new FormControl("", [
+        Validators.required,
+        formatoInvalidoValidator(
+          /(^[A-Z][A-Z][A-z][0-9][0-9][0-9]$)|(^[A-Z][A-Z][0-9][0-9][0-9][A-z][A-z]$)/i
+        ) // <-- Here's how you pass in the custom validator.
+      ]),
+      kilometrosFormControl: new FormControl("", [
+        Validators.required,
+        Validators.max(999999)
+      ])
     });
 
-    
-    
     // let mensaje = this.stateService.getOption();
     // console.log("Cliente recibido en nueva poliza: "+mensaje);
 
@@ -131,95 +181,138 @@ export class NuevaPolizaComponent implements OnInit {
     //   });
 
     this.domicilioService.getAllProvincia().subscribe(
-      lista => { this.provincias = lista; },
+      lista => {
+        this.provincias = lista;
+      },
       error => {
         console.log("No se pudo cargar las provincias");
-      });
+      }
+    );
 
     this.automovilService.getAllMarca().subscribe(
-      lista => { this.marcas = lista; },
+      lista => {
+        this.marcas = lista;
+      },
       error => {
         console.log("No se pudo cargar las marcas");
       }
     );
-
-
-
-
   }
 
   showDialog() {
-
     const dialogRef = this.dialog.open(BuscarClienteComponent, {
-      width: 'auto',
-      height: 'auto',
+      width: "auto",
+      height: "auto",
       disableClose: true,
       autoFocus: true
-    });;
+    });
 
-    dialogRef.afterClosed().subscribe(
-      data => { console.log("Dialog output: ", data);
+    dialogRef.afterClosed().subscribe(data => {
+      console.log("Dialog output: ", data);
       if (data == undefined) {
-        this.polizaForm.controls['clienteFormControl'].setErrors({ 'required': true });
-      }else{
+        this.polizaForm.controls["clienteFormControl"].setErrors({
+          required: true
+        });
+      } else {
         this.cliente = data;
-        this.domicilio = this.cliente.domicilio.calle + " " + this.cliente.domicilio.numero;
+        this.domicilio =
+          this.cliente.domicilio.calle + " " + this.cliente.domicilio.numero;
 
-        this.siniestros = this.siniestrosValores[Math.floor((Math.random() * 3))];
-      }
-        
-        
-        // this.domicilioService.getDomicilio(this.cliente.idDomicilio).subscribe(dom =>{
-        //   this.cliente.domicilio = dom;
-        // })
+        this.siniestros = this.siniestrosValores[Math.floor(Math.random() * 3)];
       }
 
-    ); 
-}
+      // this.domicilioService.getDomicilio(this.cliente.idDomicilio).subscribe(dom =>{
+      //   this.cliente.domicilio = dom;
+      // })
+    });
+  }
 
+  agregarHijo() {
+    const dialogRef = this.diaglogHijo.open(AgregarHijoComponent, {
+      width: "auto",
+      height: "auto",
+      disableClose: true,
+      autoFocus: true
+    });
+
+    dialogRef.afterClosed().subscribe(data => {
+      console.log("Dialog output: ", data);
+      if (data == undefined) {
+      } else {
+        data.id = this.hijos.length;
+        this.hijos.push(data);
+        this.dataSource.data = this.hijos;
+        console.log(this.hijos);
+        
+      }
+    });
+  }
 
   confirmar() {
-   let nuevaPoliza: Poliza = {
-    numeroDePoliza: undefined,
-    fechaInicioVigencia: undefined,
-    fechaFinVigencia: undefined,
-    fechaDeEmision:new Date(),
-    motorVehiculo: this.motorFormControl.value,
-    chasisVehiculo: this.chasisFormControl.value,
-    sumaAsegurada: this.sumaAsegurada,
-    patente: this.patenteFormControl.value,
-    kilometrosPorAño: this.kilometrosFormControl.value,
-    formaDePago: undefined,
-    añoVehiculo: this.anios.find(anio => anio.id == this.anioFormControl.value),
-    estadoPoliza: undefined,
-    cliente: this.cliente,
-    modelo: this.modelos.find(model => model.id == this.modeloFormControl.value),
-    medidasDeSeguridad: this.medidasSeguridad,
-    cobertura: undefined,
-    cuotas: undefined,
-    hijos: this.hijos,
-    domicilioDeRiesgo: this.localidades.find(localidad => localidad.id == this.localidadFormControl.value) 
-   }
+    let nuevaPoliza: Poliza = {
+      numeroDePoliza: "",
+      fechaInicioVigencia: undefined,
+      fechaFinVigencia: undefined,
+      fechaDeEmision: new Date(),
+      motorVehiculo: this.motorFormControl.value,
+      chasisVehiculo: this.chasisFormControl.value,
+      sumaAsegurada: this.sumaAsegurada,
+      patente: this.patenteFormControl.value,
+      kilometrosPorAño: this.kilometrosFormControl.value,
+      formaDePago: undefined,
+      añoVehiculo: this.anios.find(
+        anio => anio.id == this.anioFormControl.value
+      ),
+      estadoPoliza: undefined,
+      cliente: this.cliente,
+      modelo: this.modelos.find(
+        model => model.id == this.modeloFormControl.value
+      ),
+      cobertura: undefined,
+      cuotas: undefined,
+      hijos: this.hijos,
+      domicilioDeRiesgo: this.localidades.find(
+        localidad => localidad.id == this.localidadFormControl.value
+      ),
+      idLocalidad: this.localidades.find(
+        localidad => localidad.id == this.localidadFormControl.value
+      ).id,
+      idModelo: this.modelos.find(
+        model => model.id == this.modeloFormControl.value
+      ).id,
+      anioFabricacion: this.anios.find(
+        anio => anio.id == this.anioFormControl.value
+      ).anio,
+      idCobertura: null,
+      idCliente: this.cliente.id,
+      medidasDeSeguridad: this.medidasSeguridad,
+      idMedidasDeSeguridad: undefined,
+    };
+    this.medidasService.getMedidasSeguridad(this.medidasSeguridad.seGuardaEnGarage,this.medidasSeguridad.rastreo,this.medidasSeguridad.tuercasAntirobo,this.medidasSeguridad.alarma).then(any => {
+      nuevaPoliza.idMedidasDeSeguridad = any.id;
+    },
+    error => {
+      console.log("No se puede obtener medidas de seguridad");
+    });
 
     console.log(nuevaPoliza);
-    
-    this.stateService.setOption('nuevaPoliza', nuevaPoliza);
+
+    this.stateService.setOption("nuevaPoliza", nuevaPoliza);
     this.router.navigate(["/cobertura"]);
   }
   //Se ejecuta cada vez que la provincia seleccionada cambia
   //Altera la lista de localidades
   selectProvinciaChange(provincia) {
     if (provincia != undefined) {
-     
-     
-
       this.domicilioService.getAllLocalidad(provincia).subscribe(
-        lista => { this.localidades = lista; },
+        lista => {
+          this.localidades = lista;
+        },
         error => {
           console.log("No se pudo cargar las localidades");
-        });
+        }
+      );
     }
-
   }
 
   //Se ejecuta cada vez que la marca seleccionada cambia
@@ -229,61 +322,68 @@ export class NuevaPolizaComponent implements OnInit {
       console.log(marca);
 
       this.automovilService.getAllModelo(marca).subscribe(
-        lista => { this.modelos = lista; },
+        lista => {
+          this.modelos = lista;
+        },
         error => {
           console.log("No se pudo cargar las localidades");
-        });
+        }
+      );
     }
-
   }
 
   //Se ejecuta cada vez que el modelo seleccionada cambia
   //Altera la lista de años
   selectModeloChange(modelo) {
     if (modelo != undefined) {
-      console.log("Modelo "  + modelo);
+      console.log("Modelo " + modelo);
 
       this.automovilService.getAllAño(modelo).subscribe(
-        lista => { this.anios = lista; },
+        lista => {
+          this.anios = lista;
+        },
         error => {
           console.log("No se pudo cargar los años");
-        });
+        }
+      );
     }
-
   }
 
-  selectAnioChange(anio){
-    console.log("anio: "+anio);
-    
+  //Se ejecuta cada vez que el anio seleccionada cambia
+  //Altera la suma asegurada
+  selectAnioChange(anio) {
+    console.log("anio: " + anio);
+
     if (anio != undefined) {
-        this.sumaAsegurada = this.anios.find(year => year.id == anio).sumaAsegurada;
+      this.sumaAsegurada = this.anios.find(
+        year => year.id == anio
+      ).sumaAsegurada;
     }
   }
 
-  agregarHijo() {
-    this.cantidadHijos++;
-    let hijo: Hijo = {
-      id: this.cantidadHijos,
-      fechaDeNacimiento: null,
-      sexo: null,
-      estadoCivil: null
-    };
-    this.hijos.push(hijo);
-    console.log(this.hijos);
-  }
+  // agregarHijo() {
+  //   this.cantidadHijos++;
+  //   let hijo: Hijo = {
+  //     id: this.cantidadHijos,
+  //     fechaDeNacimiento: null,
+  //     sexo: null,
+  //     estadoCivil: null
+  //   };
+  //   this.hijos.push(hijo);
+  //   console.log(this.hijos);
+  // }
 
-  guardarHijo(i) {
-    let hijo = this.hijos[i];
-    hijo.sexo = this.sexoSelected[i];
-    hijo.estadoCivil = this.estadoCivilSelected[i];
+  // guardarHijo(i) {
+  //   let hijo = this.hijos[i];
+  //   hijo.sexo = this.sexoSelected[i];
+  //   hijo.estadoCivil = this.estadoCivilSelected[i];
 
-    console.log(this.fechaNacimientoSelected);
-    
-    //hijo.fechaDeNacimiento = this.fechaNacimientoSelected;
+  //   console.log(this.fechaNacimientoSelected);
 
-    console.log(this.hijos);
-    
-  }
+  //   //hijo.fechaDeNacimiento = this.fechaNacimientoSelected;
+
+  //   console.log(this.hijos);
+  // }
 
   borrarHijo(i) {
     console.log(i);
@@ -294,10 +394,10 @@ export class NuevaPolizaComponent implements OnInit {
     this.hijos = this.hijos.filter(obj => obj.id !== hijo.id);
   }
 
-  DateChange(event,i){
+  DateChange(event, i) {
     let hijo = this.hijos[i];
-    console.log("Cambio fecha hijo: "+event.value);
-    
+    console.log("Cambio fecha hijo: " + event.value);
+
     hijo.fechaDeNacimiento = new Date(event.value);
   }
 
@@ -312,41 +412,59 @@ export class NuevaPolizaComponent implements OnInit {
         return null;
       }
     };
-}
+  }
 
-
-  garage(value){ 
+  garage(value) {
     this.medidasSeguridad.seGuardaEnGarage = value.checked;
   }
 
-  tracking(value){ 
+  tracking(value) {
     this.medidasSeguridad.rastreo = value.checked;
   }
 
-  tuercas(value){ 
+  tuercas(value) {
     this.medidasSeguridad.tuercasAntirobo = value.checked;
   }
- alarma(value){ 
+  alarma(value) {
     this.medidasSeguridad.alarma = value.checked;
   }
 
-  get provinciaFormControl() { return this.polizaForm.get('provinciaFormControl'); }
-  get localidadFormControl() { return this.polizaForm.get('localidadFormControl'); }
-  get marcaFormControl() { return this.polizaForm.get('marcaFormControl'); }
-  get modeloFormControl() { return this.polizaForm.get('modeloFormControl'); }
-  get clienteFormControl() { return this.polizaForm.get('clienteFormControl'); }
-  get anioFormControl() { return this.polizaForm.get('anioFormControl'); }
-  get motorFormControl() { return this.polizaForm.get('motorFormControl'); }
-  get chasisFormControl() { return this.polizaForm.get('chasisFormControl'); }
-  get kilometrosFormControl() { return this.polizaForm.get('kilometrosFormControl'); }
-  get patenteFormControl() { return this.polizaForm.get('patenteFormControl'); }
+  get provinciaFormControl() {
+    return this.polizaForm.get("provinciaFormControl");
+  }
+  get localidadFormControl() {
+    return this.polizaForm.get("localidadFormControl");
+  }
+  get marcaFormControl() {
+    return this.polizaForm.get("marcaFormControl");
+  }
+  get modeloFormControl() {
+    return this.polizaForm.get("modeloFormControl");
+  }
+  get clienteFormControl() {
+    return this.polizaForm.get("clienteFormControl");
+  }
+  get anioFormControl() {
+    return this.polizaForm.get("anioFormControl");
+  }
+  get motorFormControl() {
+    return this.polizaForm.get("motorFormControl");
+  }
+  get chasisFormControl() {
+    return this.polizaForm.get("chasisFormControl");
+  }
+  get kilometrosFormControl() {
+    return this.polizaForm.get("kilometrosFormControl");
+  }
+  get patenteFormControl() {
+    return this.polizaForm.get("patenteFormControl");
+  }
   // get power() { return this.heroForm.get('power'); }
-
 }
 
 export function formatoInvalidoValidator(nameRe: RegExp): ValidatorFn {
-  return (control: AbstractControl): {[key: string]: any} | null => {
-       const forbidden = nameRe.test(control.value);
-    return forbidden ?  null : {'formatoInvalido': {value: control.value}};
+  return (control: AbstractControl): { [key: string]: any } | null => {
+    const forbidden = nameRe.test(control.value);
+    return forbidden ? null : { formatoInvalido: { value: control.value } };
   };
 }

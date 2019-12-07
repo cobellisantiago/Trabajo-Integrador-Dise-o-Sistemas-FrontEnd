@@ -1,121 +1,205 @@
-      <h2 mat-dialog-title>Buscar cliente</h2>
-      <mat-dialog-content class="text">
-        <div fxLayout="column" fxLayoutAlign="space-evenly stretch">
-            <!-- <mat-divider [inset]="true"></mat-divider> -->
-            <div class="container" fxLayout="column wrap" fxLayoutAlign="space-evenly start">
-                <div fxLayout="row wrap" fxLayoutAlign="space-arround stretch">
-                    <div fxLayout="column" fxLayoutAlign="space-arround start" style="padding-left: 2em;">
-                        <mat-form-field appearance="outline" color="accent">
-                            <mat-label>Numero de cliente</mat-label>
-                            <input matInput type="number" placeholder="Placeholder" [(ngModel)]="id">
-                        </mat-form-field>
-                    </div>
-                    <div fxLayout="column" fxLayoutAlign="space-arround start" style="padding-left: 2em;">
-                        <mat-form-field appearance="outline" color="accent">
-                            <mat-label>Nombre</mat-label>
-                            <input matInput placeholder="" [(ngModel)]="nombre">
-                            <!-- <mat-icon matSuffix>sentiment_very_satisfied</mat-icon> -->
-                            <!-- <mat-hint>Hint</mat-hint> -->
-                        </mat-form-field>
-                    </div>
-                    <div fxLayout="column" fxLayoutAlign="space-arround start" style="padding-left: 2em;">
-                        <mat-form-field appearance="outline" color="accent">
-                            <mat-label>Apellido</mat-label>
-                            <input matInput placeholder="" [(ngModel)]="apellido">
-                            <!-- <mat-icon matSuffix>sentiment_very_satisfied</mat-icon> -->
-                            <!-- <mat-hint>Hint</mat-hint> -->
-                        </mat-form-field>
-                    </div>
-                </div>
-                <!-- </div> -->
-                <!-- <div class="container" fxLayout="column wrap" fxLayoutAlign="space-evenly start"> -->
-                <div fxLayout="row wrap" fxLayoutAlign="space-arround stretch">
-                    <div fxLayout="column" fxFlex="50" fxLayoutAlign="space-arround start" style="padding-left: 2em;">
-                        <mat-form-field appearance="outline" color="accent">
-                            <mat-label>Tipo de documento</mat-label>
-                            <mat-select placeholder="Seleccionar" [(value)]="tipoDocumentoSelected">
-                                <mat-option *ngFor="let tipo of tiposDocumento" [ngClass]=string value={{tipoDocumento}}>
-                                    {{tipo}}</mat-option>
-                            </mat-select>
-                            <!-- <mat-icon matSuffix>sentiment_very_satisfied</mat-icon> -->
-                            <!-- <mat-hint>Hint</mat-hint> -->
-                        </mat-form-field>
-                    </div>
-                    <div fxLayout="column" fxFlex="50" fxLayoutAlign="space-arround start" style="padding-left: 2em;">
-                        <mat-form-field appearance="outline" color="accent">
-                            <mat-label>Numero de documento</mat-label>
-                            <input matInput type="number" placeholder="" [(ngModel)]="numeroDocumento">
-                            <!-- <mat-icon matSuffix>sentiment_very_satisfied</mat-icon> -->
-                            <!-- <mat-hint>Hint</mat-hint> -->
-                        </mat-form-field>
-                    </div>
-                </div>
-            </div>
-            <div fxLayout="column" fxLayoutAlign="space-evenly stretch" class="fila">
-            <div fxLayout="row" fxLayoutAlign="end strech">
-                <button mat-raised-button type="button" style="background-color:#FFFFFF;"
-                [mat-dialog-close]="true" [routerLink]="['/menu']" class="button">Cancelar</button>
-                <button mat-raised-button style="background-color:#36AE47;" (click)="buscar()" class="button">Buscar</button>
-            </div> 
-            </div> 
+<h2 mat-dialog-title>Buscar cliente</h2>
+<mat-dialog-content class="text">
+  <div fxLayout="column" fxLayoutAlign="space-evenly stretch">
+    <!-- <mat-divider [inset]="true"></mat-divider> -->
+    <div
+      class="container"
+      fxLayout="column wrap"
+      fxLayoutAlign="space-evenly start"
+    >
+      <div fxLayout="row wrap" fxLayoutAlign="space-arround stretch">
+        <div
+          fxLayout="column"
+          fxLayoutAlign="space-arround start"
+          style="padding-left: 2em;"
+        >
+          <mat-form-field appearance="outline" color="accent">
+            <mat-label>Numero de cliente</mat-label>
+            <input
+              matInput
+              type="text"
+              placeholder="Placeholder"
+              [(ngModel)]="id"
+            />
+          </mat-form-field>
         </div>
-        <table *ngIf="clientes!=undefined" mat-table [dataSource]="dataSource" class="mat-elevation-z2 table">
-        
-                <!-- Checkbox Column -->
-                <ng-container matColumnDef="select">
-                  <th mat-header-cell *matHeaderCellDef>
-                    <mat-checkbox (change)="$event ? masterToggle() : null"
-                                  [checked]="selection.hasValue() && isAllSelected()"
-                                  [indeterminate]="selection.hasValue() && !isAllSelected()"
-                                  [aria-label]="checkboxLabel()">
-                    </mat-checkbox>
-                  </th>
-                  <td mat-cell *matCellDef="let row">
-                    <mat-checkbox (click)="$event.stopPropagation()"
-                                  (change)="$event ? selection.toggle(row) : null"
-                                  [checked]="selection.isSelected(row)"
-                                  [aria-label]="checkboxLabel(row)">
-                    </mat-checkbox>
-                  </td>
-                </ng-container>
-              
-                <!-- Position Column -->
-                <ng-container matColumnDef="position">
-                  <th mat-header-cell *matHeaderCellDef> No. de cliente </th>
-                  <td mat-cell *matCellDef="let element"> {{element.id}} </td>
-                </ng-container>
-              
-                <!-- Name Column -->
-                <ng-container matColumnDef="name">
-                  <th mat-header-cell *matHeaderCellDef> Apellido </th>
-                  <td mat-cell *matCellDef="let element"> {{element.apellido}} </td>
-                </ng-container>
-              
-                <!-- Weight Column -->
-                <ng-container matColumnDef="weight">
-                  <th mat-header-cell *matHeaderCellDef> Nombre </th>
-                  <td mat-cell *matCellDef="let element"> {{element.nombre}} </td>
-                </ng-container>
-              
-                <!-- Symbol Column -->
-                <ng-container matColumnDef="symbol">
-                  <th mat-header-cell *matHeaderCellDef> Tipo de documento </th>
-                  <td mat-cell *matCellDef="let element"> {{element.tipoDeDocumento}} </td>
-                </ng-container>
-        
-                <ng-container matColumnDef="symbol2">
-                        <th mat-header-cell *matHeaderCellDef> No. de documento </th>
-                        <td mat-cell *matCellDef="let element"> {{element.numeroDeDocumento}} </td>
-                      </ng-container>
-              
-                <tr mat-header-row *matHeaderRowDef="displayedColumns  sticky: true"></tr>
-                <tr mat-row *matRowDef="let row; columns: displayedColumns;"
-                    (click)="selection.toggle(row)"
-                    [ngClass]="{hovered: row.hovered, highlighted: selection.isSelected(row)}"
-                    (mouseover)="row.hovered = true" (mouseout)="row.hovered = false">>
-                </tr>
-              </table>
-      </mat-dialog-content>
-      <mat-dialog-actions>
-        <button mat-stroked-button  [mat-dialog-close]="true" color="accent" (click)="seleccionarCliente()">Aceptar</button>
-      </mat-dialog-actions>
+        <div
+          fxLayout="column"
+          fxLayoutAlign="space-arround start"
+          style="padding-left: 2em;"
+        >
+          <mat-form-field appearance="outline" color="accent">
+            <mat-label>Nombre</mat-label>
+            <input matInput placeholder="" [(ngModel)]="nombre" />
+            <!-- <mat-icon matSuffix>sentiment_very_satisfied</mat-icon> -->
+            <!-- <mat-hint>Hint</mat-hint> -->
+          </mat-form-field>
+        </div>
+        <div
+          fxLayout="column"
+          fxLayoutAlign="space-arround start"
+          style="padding-left: 2em;"
+        >
+          <mat-form-field appearance="outline" color="accent">
+            <mat-label>Apellido</mat-label>
+            <input matInput placeholder="" [(ngModel)]="apellido" />
+            <!-- <mat-icon matSuffix>sentiment_very_satisfied</mat-icon> -->
+            <!-- <mat-hint>Hint</mat-hint> -->
+          </mat-form-field>
+        </div>
+      </div>
+      <!-- </div> -->
+      <!-- <div class="container" fxLayout="column wrap" fxLayoutAlign="space-evenly start"> -->
+      <div fxLayout="row wrap" fxLayoutAlign="space-arround stretch">
+        <div
+          fxLayout="column"
+          fxFlex="50"
+          fxLayoutAlign="space-arround start"
+          style="padding-left: 2em;"
+        >
+          <mat-form-field appearance="outline" color="accent">
+            <mat-label>Tipo de documento</mat-label>
+            <mat-select
+              placeholder="Seleccionar"
+              [(value)]="tipoDocumentoSelected"
+            >
+              <mat-option
+                *ngFor="let tipo of tiposDocumento"
+                [ngClass]="string"
+                value="{{ tipoDocumento }}"
+              >
+                {{ tipo }}</mat-option
+              >
+            </mat-select>
+            <!-- <mat-icon matSuffix>sentiment_very_satisfied</mat-icon> -->
+            <!-- <mat-hint>Hint</mat-hint> -->
+          </mat-form-field>
+        </div>
+        <div
+          fxLayout="column"
+          fxFlex="50"
+          fxLayoutAlign="space-arround start"
+          style="padding-left: 2em;"
+        >
+          <mat-form-field appearance="outline" color="accent">
+            <mat-label>Numero de documento</mat-label>
+            <input
+              matInput
+              type="number"
+              placeholder=""
+              [(ngModel)]="numeroDocumento"
+            />
+            <!-- <mat-icon matSuffix>sentiment_very_satisfied</mat-icon> -->
+            <!-- <mat-hint>Hint</mat-hint> -->
+          </mat-form-field>
+        </div>
+      </div>
+    </div>
+    <div fxLayout="column" fxLayoutAlign="space-evenly stretch" class="fila">
+      <div fxLayout="row" fxLayoutAlign="end strech">
+        <button
+          mat-raised-button
+          type="button"
+          style="background-color:#FFFFFF;"
+          [mat-dialog-close]="true"
+          [routerLink]="['/menu']"
+          class="button"
+        >
+          Cancelar
+        </button>
+        <button
+          mat-raised-button
+          style="background-color:#36AE47;"
+          (click)="buscar()"
+          class="button"
+        >
+          Buscar
+        </button>
+      </div>
+    </div>
+  </div>
+  <table
+    *ngIf="clientes != undefined"
+    mat-table
+    [dataSource]="dataSource"
+    class="mat-elevation-z2 table"
+  >
+    <!-- Checkbox Column -->
+    <ng-container matColumnDef="select">
+      <th mat-header-cell *matHeaderCellDef>
+        <mat-checkbox
+          (change)="$event ? masterToggle() : null"
+          [checked]="selection.hasValue() && isAllSelected()"
+          [indeterminate]="selection.hasValue() && !isAllSelected()"
+          [aria-label]="checkboxLabel()"
+        >
+        </mat-checkbox>
+      </th>
+      <td mat-cell *matCellDef="let row">
+        <mat-checkbox
+          (click)="$event.stopPropagation()"
+          (change)="$event ? selection.toggle(row) : null"
+          [checked]="selection.isSelected(row)"
+          [aria-label]="checkboxLabel(row)"
+        >
+        </mat-checkbox>
+      </td>
+    </ng-container>
+
+    <!-- Position Column -->
+    <ng-container matColumnDef="position">
+      <th mat-header-cell *matHeaderCellDef>No. de cliente</th>
+      <td mat-cell *matCellDef="let element">{{ element.id }}</td>
+    </ng-container>
+
+    <!-- Name Column -->
+    <ng-container matColumnDef="name">
+      <th mat-header-cell *matHeaderCellDef>Apellido</th>
+      <td mat-cell *matCellDef="let element">{{ element.apellido }}</td>
+    </ng-container>
+
+    <!-- Weight Column -->
+    <ng-container matColumnDef="weight">
+      <th mat-header-cell *matHeaderCellDef>Nombre</th>
+      <td mat-cell *matCellDef="let element">{{ element.nombre }}</td>
+    </ng-container>
+
+    <!-- Symbol Column -->
+    <ng-container matColumnDef="symbol">
+      <th mat-header-cell *matHeaderCellDef>Tipo de documento</th>
+      <td mat-cell *matCellDef="let element">{{ element.tipoDeDocumento }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="symbol2">
+      <th mat-header-cell *matHeaderCellDef>No. de documento</th>
+      <td mat-cell *matCellDef="let element">
+        {{ element.numeroDeDocumento }}
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+    <tr
+      mat-row
+      *matRowDef="let row; columns: displayedColumns"
+      (click)="selection.toggle(row)"
+      [ngClass]="{
+        hovered: row.hovered,
+        highlighted: selection.isSelected(row)
+      }"
+      (mouseover)="row.hovered = true"
+      (mouseout)="row.hovered = false"
+    >
+      >
+    </tr>
+  </table>
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button
+    mat-stroked-button
+    [mat-dialog-close]="true"
+    color="accent"
+    (click)="seleccionarCliente()"
+  >
+    Aceptar
+  </button>
+</mat-dialog-actions>

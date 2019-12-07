@@ -73,6 +73,7 @@ export class SeleccionCoberturaComponent implements OnInit {
     this.nuevaPoliza.cobertura = this.coberturas[this.firstFormGroup.get('firstCtrl').value];
     this.nuevaPoliza.fechaInicioVigencia = this.secondFormGroup.get('secondCtrl').value;
     this.nuevaPoliza.formaDePago = this.tercerFormGroup.get('tercerCtrl').value;
+    this.nuevaPoliza.idCobertura = this.nuevaPoliza.cobertura.id;
 
     console.log(this.nuevaPoliza);
     this.stateService.setOption('nuevaPoliza', this.nuevaPoliza);
