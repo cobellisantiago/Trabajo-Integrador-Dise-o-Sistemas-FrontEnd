@@ -62,8 +62,6 @@ export class BuscarClienteComponent implements OnInit {
       console.log("No se pudo cargar los tipos de documento");
     });
 
-  
-
   }
 
   buscar(){

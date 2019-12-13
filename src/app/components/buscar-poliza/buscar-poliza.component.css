@@ -1,0 +1,31 @@
+
+table {
+    width: 1000px;
+    margin: 10px;
+  }
+button{
+    margin: 2px;
+}
+
+.mat-row.hovered {
+    background: #eee;
+    cursor: pointer;
+}
+
+.mat-row.highlighted {
+  background: #999;
+}
+
+.mat-cell,
+.mat-header-cell{
+  margin-left:20px;
+}
+
+.mat-footer-row,
+.mat-header-row,
+.mat-row {
+    /* display: inline-flex; */
+    min-width: 100%;
+    margin: 20px,
+    
+}

@@ -1,0 +1,13 @@
+/* .mat-row.hovered {
+    background: #eee;
+    cursor: pointer;
+  }
+  
+  .mat-row.highlighted {
+  background: #999;
+  } */
+
+  table {
+    width: 600px;
+    margin: 10px;
+  }

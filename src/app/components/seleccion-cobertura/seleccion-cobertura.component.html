@@ -40,7 +40,7 @@
         <input matInput [min]="minDate" [max]="maxDate" [matDatepicker]="picker" placeholder="Seleccione una fecha" formControlName="secondCtrl"
         (focus)="picker.open()" required>
         <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-        <mat-datepicker #picker></mat-datepicker>
+        <mat-datepicker #picker [startAt]="minDate"></mat-datepicker>
       </mat-form-field>
       <div>
         <button mat-button matStepperPrevious>Atras</button>
@@ -88,7 +88,6 @@
       </form>
       <div>
         <button mat-button matStepperPrevious>Atras</button>
-        <button mat-button matStepperNext>Siguiente</button>
       </div>
     </form>
   </mat-step>

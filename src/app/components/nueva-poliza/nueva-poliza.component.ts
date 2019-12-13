@@ -1,4 +1,5 @@
-import { MedidasDeSeguridadService } from './../../service/medidas-de-seguridad.service';
+import { PolizaService } from "./../../service/poliza.service";
+import { MedidasDeSeguridadService } from "./../../service/medidas-de-seguridad.service";
 import { SelectionModel } from "@angular/cdk/collections";
 import { AgregarHijoComponent } from "./../agregar-hijo/agregar-hijo.component";
 import { MedidasDeSeguridad } from "./../../model/medidas-de-seguridad";
@@ -82,7 +83,7 @@ export class NuevaPolizaComponent implements OnInit {
 
   clienteSeleccionado: Cliente;
 
-  displayedColumns: string[] = ["weight", "symbol", "symbol2"];
+  displayedColumns: string[] = ["weight", "symbol", "symbol2", "eliminar"];
   dataSource: MatTableDataSource<Hijo>;
   selection = new SelectionModel<Hijo>(false, []);
 
@@ -115,6 +116,7 @@ export class NuevaPolizaComponent implements OnInit {
     private ClienteService: ClienteService,
     private automovilService: AutomovilService,
     private medidasService: MedidasDeSeguridadService,
+    private polizaService: PolizaService,
     private router: Router,
     private stateService: StateService,
     public dialog: MatDialog,
@@ -126,7 +128,6 @@ export class NuevaPolizaComponent implements OnInit {
     this.hijos = [];
     this.dataSource = new MatTableDataSource(this.hijos);
 
-   
     this.cantidadHijos = 0;
     this.medidasSeguridad = new MedidasDeSeguridad({
       id: 0,
@@ -243,7 +244,6 @@ export class NuevaPolizaComponent implements OnInit {
         this.hijos.push(data);
         this.dataSource.data = this.hijos;
         console.log(this.hijos);
-        
       }
     });
   }
@@ -287,13 +287,23 @@ export class NuevaPolizaComponent implements OnInit {
       idCliente: this.cliente.id,
       medidasDeSeguridad: this.medidasSeguridad,
       idMedidasDeSeguridad: undefined,
+      numeroDeSiniestros: this.cliente.numeroSiniestrosUltimoAño
     };
-    this.medidasService.getMedidasSeguridad(this.medidasSeguridad.seGuardaEnGarage,this.medidasSeguridad.rastreo,this.medidasSeguridad.tuercasAntirobo,this.medidasSeguridad.alarma).then(any => {
-      nuevaPoliza.idMedidasDeSeguridad = any.id;
-    },
-    error => {
-      console.log("No se puede obtener medidas de seguridad");
-    });
+    this.medidasService
+      .getMedidasSeguridad(
+        this.medidasSeguridad.seGuardaEnGarage,
+        this.medidasSeguridad.rastreo,
+        this.medidasSeguridad.tuercasAntirobo,
+        this.medidasSeguridad.alarma
+      )
+      .then(
+        any => {
+          nuevaPoliza.idMedidasDeSeguridad = any.id;
+        },
+        error => {
+          console.log("No se puede obtener medidas de seguridad");
+        }
+      );
 
     console.log(nuevaPoliza);
 
@@ -392,13 +402,27 @@ export class NuevaPolizaComponent implements OnInit {
     console.log(hijo);
 
     this.hijos = this.hijos.filter(obj => obj.id !== hijo.id);
+    console.log("Borre un hijo");
+    
   }
 
-  DateChange(event, i) {
-    let hijo = this.hijos[i];
-    console.log("Cambio fecha hijo: " + event.value);
+  verificarPoliza(event, id) {
+    console.log(event);
 
-    hijo.fechaDeNacimiento = new Date(event.value);
+    if (event != undefined) {
+      this.polizaService
+        .obtenerPoliza(
+          this.motorFormControl.value,
+          this.chasisFormControl.value,
+          this.patenteFormControl.value
+        )
+        .then(resultado => {
+          console.log(resultado);
+          if (resultado == true) {
+            // if(id=="motor") this.motorFormControl.setErrors('')
+          }
+        });
+    }
   }
 
   public customPatternValid(config: any): ValidatorFn {
@@ -412,6 +436,23 @@ export class NuevaPolizaComponent implements OnInit {
         return null;
       }
     };
+  }
+  sexo(num: number) {
+    return num == 1 ? "Femenino" : "Masculino";
+  }
+  estado(num: number) {
+    switch (num) {
+      case 0:
+        return "Casado";
+      case 1:
+        return "Soltero";
+      case 2:
+        return "Separado";
+      case 3:
+        return "Divorciado";
+      case 4:
+        return "Viudo";
+    }
   }
 
   garage(value) {

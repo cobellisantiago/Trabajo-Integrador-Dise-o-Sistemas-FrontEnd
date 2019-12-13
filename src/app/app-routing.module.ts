@@ -1,39 +1,50 @@
-import { ConfirmarPolizaComponent } from './components/confirmar-poliza/confirmar-poliza.component';
-import { BuscarClienteComponent } from './components/buscar-cliente/buscar-cliente.component';
-import { RegistrarPagoComponent } from './components/registrar-pago/registrar-pago.component';
-import { SeleccionCoberturaComponent } from './components/seleccion-cobertura/seleccion-cobertura.component';
-import { NuevaPolizaComponent } from './components/nueva-poliza/nueva-poliza.component';
-import { MenuPrincipalComponent } from './components/menu-principal/menu-principal.component'
-import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
-
+import { ConfirmarPolizaComponent } from "./components/confirmar-poliza/confirmar-poliza.component";
+import { BuscarClienteComponent } from "./components/buscar-cliente/buscar-cliente.component";
+import { RegistrarPagoComponent } from "./components/registrar-pago/registrar-pago.component";
+import { SeleccionCoberturaComponent } from "./components/seleccion-cobertura/seleccion-cobertura.component";
+import { NuevaPolizaComponent } from "./components/nueva-poliza/nueva-poliza.component";
+import { MenuPrincipalComponent } from "./components/menu-principal/menu-principal.component";
+import { NgModule } from "@angular/core";
+import { Routes, RouterModule } from "@angular/router";
 
 const routes: Routes = [
   {
-    path: 'menu', component: MenuPrincipalComponent
+    path: "menu",
+    component: MenuPrincipalComponent
   },
   {
-    path: 'nueva', component: NuevaPolizaComponent
-  },
-  { 
-    path: 'cobertura',  component: SeleccionCoberturaComponent
+    path: "nueva",
+    component: NuevaPolizaComponent
   },
   {
-    path: 'pago', component: RegistrarPagoComponent
+    path: "cobertura",
+    component: SeleccionCoberturaComponent
   },
   {
-    path: 'cliente', component: BuscarClienteComponent
+    path: "pago",
+    component: RegistrarPagoComponent
   },
   {
-    path: 'confirmar', component: ConfirmarPolizaComponent
+    path: "cliente",
+    component: BuscarClienteComponent
   },
-  { 
-    path: '',   redirectTo: '/menu', pathMatch: 'prefix' 
+  {
+    path: "confirmar",
+    component: ConfirmarPolizaComponent
   },
+  {
+    path: "pago",
+    component: RegistrarPagoComponent
+  },
+  {
+    path: "",
+    redirectTo: "/menu",
+    pathMatch: "prefix"
+  }
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule]
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}

@@ -5,6 +5,7 @@ export class Cuota {
     fechaDeVencimiento: Date;
     valorActual: number;
     valorOriginal: number;
+    seleccionable: Boolean;
 
    // Pago pago;  VERIFICAR SI ES NECESARIO DESDE EL FRENTE
 
@@ -12,7 +13,7 @@ export class Cuota {
 
   constructor(any){
 
-    this.id = any.idCouta;
+    this.id = any.id;
     this.numeroCuota = any.numeroCuota;
     if(any.fechaDeVencimiento == undefined){
       this.fechaDeVencimiento = new Date()

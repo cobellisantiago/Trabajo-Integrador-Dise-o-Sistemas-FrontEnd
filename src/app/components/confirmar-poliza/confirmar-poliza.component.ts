@@ -1,3 +1,4 @@
+import { MensajeFinalComponent } from './../mensaje-final/mensaje-final.component';
 import { PolizaService } from './../../service/poliza.service';
 import { Cuota } from "./../../model/cuota";
 import { CuotaService } from "./../../service/cuota.service";
@@ -5,6 +6,7 @@ import { Cliente } from "./../../model/cliente";
 import { StateService } from "./../../state.service";
 import { Poliza } from "./../../model/poliza";
 import { Component, OnInit } from "@angular/core";
+import { MatDialog } from '@angular/material';
 
 @Component({
   selector: "app-confirmar-poliza",
@@ -27,7 +29,8 @@ export class ConfirmarPolizaComponent implements OnInit {
   constructor(
     private stateService: StateService,
     private cuotaService: CuotaService,
-    private polizaService: PolizaService
+    private polizaService: PolizaService,
+    public dialog: MatDialog,
   ) {}
 
   ngOnInit() {
@@ -104,7 +107,15 @@ export class ConfirmarPolizaComponent implements OnInit {
     console.log(this.nuevaPoliza);
     this.polizaService.altaPoliza(this.nuevaPoliza,this.nuevaPoliza.hijos).then(pol => {
       console.log(pol);
-      
+        const dialogRef = this.dialog.open(MensajeFinalComponent, {
+          width: "auto",
+          height: "auto",
+          disableClose: true,
+          autoFocus: true,
+          data:{
+            numeroDePoliza: pol.numeroDePoliza,
+          }
+        });
     },
     error => { console.log("error guardando la poliza");
      });

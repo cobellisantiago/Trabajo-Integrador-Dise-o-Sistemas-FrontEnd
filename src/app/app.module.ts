@@ -34,6 +34,10 @@ import { RegistrarPagoComponent } from './components/registrar-pago/registrar-pa
 import { BuscarClienteComponent } from './components/buscar-cliente/buscar-cliente.component';
 import { ConfirmarPolizaComponent } from './components/confirmar-poliza/confirmar-poliza.component';
 import { AgregarHijoComponent } from './components/agregar-hijo/agregar-hijo.component';
+import { BuscarPolizaComponent } from './components/buscar-poliza/buscar-poliza.component';
+import { MontosPagoComponent } from './components/montos-pago/montos-pago.component';
+import { IngresarMontoComponent } from './components/ingresar-monto/ingresar-monto.component';
+import { MensajeFinalComponent } from './components/mensaje-final/mensaje-final.component';
 
 @NgModule({
   declarations: [
@@ -44,7 +48,11 @@ import { AgregarHijoComponent } from './components/agregar-hijo/agregar-hijo.com
     RegistrarPagoComponent,
     BuscarClienteComponent,
     ConfirmarPolizaComponent,
-    AgregarHijoComponent
+    AgregarHijoComponent,
+    BuscarPolizaComponent,
+    MontosPagoComponent,
+    IngresarMontoComponent,
+    MensajeFinalComponent
   ],
   imports: [
     BrowserModule,
@@ -76,6 +84,6 @@ import { AgregarHijoComponent } from './components/agregar-hijo/agregar-hijo.com
   ],
   providers: [],
   bootstrap: [AppComponent],
-  entryComponents: [BuscarClienteComponent,AgregarHijoComponent]
+  entryComponents: [BuscarClienteComponent,AgregarHijoComponent,BuscarPolizaComponent,MontosPagoComponent,MensajeFinalComponent]
 })
 export class AppModule { }

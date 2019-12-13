@@ -1,3 +1,4 @@
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material';
 import { Hijo } from './../../model/hijo';
 import { Component, OnInit } from '@angular/core';
@@ -20,10 +21,17 @@ export class AgregarHijoComponent implements OnInit {
 
   constructor(public dialogRef: MatDialogRef<AgregarHijoComponent>) { }
 
+  hijoForm: FormGroup;
+
   ngOnInit() {
+    this.hijoForm = new FormGroup({
+      sexoFormControl: new FormControl("",Validators.required),
+      estadoFormControl: new FormControl("", Validators.required),
+      edadFormControl: new FormControl("", Validators.required),
+    });
   }
 
-  seleccionarCliente(){
+  confirmar(){
     console.log(this.fechaNacimientoSelected);
     
     this.hijo={
@@ -40,4 +48,16 @@ export class AgregarHijoComponent implements OnInit {
 
     this.dialogRef.close(this.hijo);
   }
+
+  get sexoFormControl() {
+    return this.hijoForm.get("sexoFormControl");
+  }
+  get estadoFormControl() {
+    return this.hijoForm.get("estadoFormControl");
+  }
+  get edadFormControl() {
+    return this.hijoForm.get("edadFormControl");
+  }
+
+
 }

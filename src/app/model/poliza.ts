@@ -42,6 +42,7 @@ export class Poliza {
   idLocalidad: number;
   idModelo: number;
   anioFabricacion: number;
+  numeroDeSiniestros: number;
 
   constructor(any) {
     this.numeroDePoliza = any.numeroDePoliza;
@@ -69,5 +70,7 @@ export class Poliza {
     this.anioFabricacion = any.anioFabricacion;
     this.idCliente = any.idCliente;
     this.idMedidasDeSeguridad = any.idMedidasDeSeguridad;
+    this.numeroDeSiniestros = any.numeroDeSiniestros;
+    
   }
 }
