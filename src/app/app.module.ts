@@ -15,7 +15,10 @@ import {MatCardModule} from '@angular/material/card';
 import {MatButtonModule} from '@angular/material/button';
 import {MatGridListModule} from '@angular/material/grid-list';
 import {MatFormFieldModule} from '@angular/material/form-field';
-import {MatInputModule, MatNativeDateModule} from '@angular/material';
+import {MAT_MOMENT_DATE_FORMATS,MAT_MOMENT_DATE_ADAPTER_OPTIONS} from '@angular/material-moment-adapter';
+import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from '@angular/material/core';
+import { MatMomentDateModule, MomentDateAdapter } from "@angular/material-moment-adapter";
+import {MatInputModule} from '@angular/material/input';
 import {MatSelectModule} from '@angular/material/select';
 import {MatDividerModule} from '@angular/material/divider';
 import {MatCheckboxModule} from '@angular/material/checkbox';
@@ -23,9 +26,10 @@ import {MatExpansionModule} from '@angular/material/expansion';
 import {MatIconModule} from '@angular/material/icon';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import {MatStepperModule} from '@angular/material/stepper';
-import { MatRadioModule } from '@angular/material';
+import {MatRadioModule } from '@angular/material';
 import {MatTableModule} from '@angular/material/table';
 import {MatDialogModule} from '@angular/material/dialog';
+import {MatNativeDateModule} from '@angular/material';
 
 import { MenuPrincipalComponent } from './components/menu-principal/menu-principal.component';
 import { NuevaPolizaComponent } from './components/nueva-poliza/nueva-poliza.component';
@@ -80,7 +84,8 @@ import { MensajeFinalComponent } from './components/mensaje-final/mensaje-final.
     MatStepperModule,
     MatRadioModule,
     MatDialogModule,
-    MatTableModule
+    MatTableModule,
+    MatMomentDateModule
   ],
   providers: [],
   bootstrap: [AppComponent],

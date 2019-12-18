@@ -49,17 +49,17 @@ export class ClienteService {
     id: string,
     apellido: string,
     nombre: string,
-    tipoDeDocumento: string,
+    tipoDeDocumento: String,
     numeroDeDocumento: number
   ): Observable<any> {
     let url = `${this.apiUrl}?`;
-    if (id != undefined) url += `id=${id.toString()}`;
-    if (apellido != undefined) url += `apellido=${apellido}`;
-    if (nombre != undefined) url += `nombre=${nombre}`;
+    if (id != undefined) url += `id=${id.toString()}&`;
+    if (apellido != undefined) url += `apellido=${apellido}&`;
+    if (nombre != undefined) url += `nombre=${nombre}&`;
     if (tipoDeDocumento != undefined)
-      url += `tipoDeDocumento=${tipoDeDocumento}`;
+      url += `tipoDeDocumento=${tipoDeDocumento}&`;
     if (numeroDeDocumento != undefined)
-      url += `numeroDeDocumento=${numeroDeDocumento.toString()}`;
+      url += `numeroDeDocumento=${numeroDeDocumento.toString()}&`;
     return this.http.get<any>(url).pipe(
       map(any => {
         // console.log("Cliente recibidio: "+response);

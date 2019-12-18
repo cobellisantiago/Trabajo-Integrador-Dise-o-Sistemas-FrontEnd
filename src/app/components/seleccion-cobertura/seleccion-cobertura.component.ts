@@ -51,7 +51,7 @@ export class SeleccionCoberturaComponent implements OnInit {
       firstCtrl: ['', Validators.required]
     });
     this.secondFormGroup = this._formBuilder.group({
-      secondCtrl: ['', Validators.required]
+      secondCtrl: [this.minDate, Validators.required]
     });
     this.tercerFormGroup = this._formBuilder.group({
       tercerCtrl: ['', Validators.required]
@@ -72,6 +72,8 @@ export class SeleccionCoberturaComponent implements OnInit {
     
     this.nuevaPoliza.cobertura = this.coberturas[this.firstFormGroup.get('firstCtrl').value];
     this.nuevaPoliza.fechaInicioVigencia = this.secondFormGroup.get('secondCtrl').value;
+    console.log(this.tercerFormGroup.get('tercerCtrl').value);
+    
     this.nuevaPoliza.formaDePago = this.tercerFormGroup.get('tercerCtrl').value;
     this.nuevaPoliza.idCobertura = this.nuevaPoliza.cobertura.id;
 

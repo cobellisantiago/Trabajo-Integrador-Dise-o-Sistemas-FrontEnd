@@ -24,6 +24,8 @@ export class BuscarClienteComponent implements OnInit {
   tipoDocumento: string;
   numeroDocumento: number;
   clienteSeleccionado: Cliente;
+  error: Boolean = false;
+
 
   displayedColumns: string[] = ['select', 'position', 'name', 'weight', 'symbol','symbol2'];
   dataSource: MatTableDataSource<Cliente>;
@@ -68,14 +70,23 @@ export class BuscarClienteComponent implements OnInit {
     if(this.id=="")this.id = undefined;
     if(this.apellido=="")this.apellido = undefined;
     if(this.nombre=="")this.nombre = undefined;
+    console.log(this.tipoDocumento);
     
     this.clienteServicie.getClientes(this.id,this.apellido,this.nombre,this.tipoDocumento,this.numeroDocumento).subscribe(lista => {
       this.clientes = lista;
       this.dataSource = new MatTableDataSource(this.clientes);
       console.log(this.clientes);
+      if(this.clientes.length==0){
+        this.error = true;
+        this.dataSource = new MatTableDataSource([]);
+      }
+      this.error = false;
       
   },
   error => { console.log("No se puede cargar la lista de clientes");
+            this.error = true;
+            this.clientes=[];
+            this.dataSource = new MatTableDataSource([]);
   });
   }
 

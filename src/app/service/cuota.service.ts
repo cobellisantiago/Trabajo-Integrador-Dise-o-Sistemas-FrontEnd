@@ -56,17 +56,19 @@ export class CuotaService {
     );
   }
 
-  registrarPago(numeroDePoliza: String, cuotas: number[]): Observable<any>{
+  registrarPago(numeroDePoliza: String, cuotas: number[]): Promise<number>{
     let url = `${this.apiUrl}/pago/registrar`;
     let pago = {
-      numeroDePoliza: numeroDePoliza,
-      cuotasId: cuotas
+      "numeroDePoliza": numeroDePoliza,
+      "cuotasId": cuotas
     }
-
-    return this.http.post<any>(url,pago).pipe(map(
+  
+    return this.http.post<any>(url,pago,).pipe(map(
       any => {
+        console.log(any);
+        
         return any;
       }
-    ))
+    )).toPromise();
   }
 }

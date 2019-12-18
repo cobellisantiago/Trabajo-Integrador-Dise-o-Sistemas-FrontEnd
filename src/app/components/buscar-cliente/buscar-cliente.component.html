@@ -48,6 +48,7 @@
           </mat-form-field>
         </div>
       </div>
+    
       <!-- </div> -->
       <!-- <div class="container" fxLayout="column wrap" fxLayoutAlign="space-evenly start"> -->
       <div fxLayout="row wrap" fxLayoutAlign="space-arround stretch">
@@ -61,12 +62,12 @@
             <mat-label>Tipo de documento</mat-label>
             <mat-select
               placeholder="Seleccionar"
-              [(value)]="tipoDocumentoSelected"
+              [(ngModel)]="tipoDocumento"
             >
               <mat-option
                 *ngFor="let tipo of tiposDocumento"
-                [ngClass]="string"
-                value="{{ tipoDocumento }}"
+                [ngClass]="String"
+                [value]="tipo"
               >
                 {{ tipo }}</mat-option
               >
@@ -118,6 +119,7 @@
       </div>
     </div>
   </div>
+  <h3 *ngIf="error" style="color:'red';">CLIENTE INEXISTENTE</h3>
   <table
     *ngIf="clientes != undefined"
     mat-table

@@ -401,8 +401,9 @@ export class NuevaPolizaComponent implements OnInit {
     let hijo = this.hijos[i];
     console.log(hijo);
 
-    this.hijos = this.hijos.filter(obj => obj.id !== hijo.id);
+    this.hijos = this.hijos.filter(obj => obj.id !== i.id);
     console.log("Borre un hijo");
+    this.dataSource.data = this.hijos;
     
   }
 

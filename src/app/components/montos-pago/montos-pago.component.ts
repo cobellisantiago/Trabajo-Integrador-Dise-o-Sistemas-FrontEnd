@@ -39,8 +39,8 @@ export class MontosPagoComponent implements OnInit {
   }
 
   finalizar() {
-    this.cuotaService.registrarPago(this.data.numeroDePoliza,this.data.cuotas).subscribe(
-      any => {this.resultado=any;
+    this.cuotaService.registrarPago(this.data.numeroDePoliza,this.data.cuotas).then(
+      any => {this.resultado=true;
       console.log(any);
       },
       error => { console.log("No se pudo registrar el pago");
