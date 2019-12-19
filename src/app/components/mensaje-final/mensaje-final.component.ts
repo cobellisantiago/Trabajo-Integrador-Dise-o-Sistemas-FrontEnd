@@ -17,7 +17,7 @@ export class MensajeFinalComponent implements OnInit {
 
   ngOnInit() {
     console.log(this.data)
-    this.numeroDePoliza = this.data.total;
+    this.numeroDePoliza = this.data.numeroDePoliza;
   }
 
   cancelar(){

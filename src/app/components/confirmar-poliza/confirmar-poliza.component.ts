@@ -51,8 +51,13 @@ export class ConfirmarPolizaComponent implements OnInit {
 
     this.calcularCuotas();
 
-    this.premio = this.nuevaPoliza.sumaAsegurada * 0.005;
-    this.descuento = this.nuevaPoliza.sumaAsegurada * 0.01;
+    this.premio = this.nuevaPoliza.sumaAsegurada * (0.07);
+    if(this.mensual){
+      this.descuento = this.nuevaPoliza.sumaAsegurada * (0.01);
+    }else{
+      this.descuento = this.nuevaPoliza.sumaAsegurada * (0.03);
+    }
+    
   }
 
   calcularCuotas() {
@@ -95,7 +100,7 @@ export class ConfirmarPolizaComponent implements OnInit {
           } else {
             this.ultimoDiaPago = this.cuotas.find( cuota => cuota.numeroCuota == 1).fechaDeVencimiento;
           }
-          this.montoTotal = this.montoTotal - this.descuento - this.premio;
+          
         },
         error => {
           console.log("no se pudo crear las cuotas");
